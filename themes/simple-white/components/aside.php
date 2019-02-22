@@ -45,7 +45,7 @@
             if ($fontSize > 20) $fontSize = 20;
             $fontSize += 12;
             ?>
-            <a href="/index.php/tag/{tag.getTag()}" class="tag-link" style="font-size: {:fontSize}px">
+            <a href="{:urlPrefix}/tag/{tag.getTag()}" class="tag-link" style="font-size: {:fontSize}px">
                 {tag.getTag()}({tag.getContentCount()})
             </a>
             {endeach}

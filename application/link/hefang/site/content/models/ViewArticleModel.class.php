@@ -25,7 +25,7 @@ class ViewArticleModel extends BaseModel
     private $cateName = '';
     private $cateAlias = '';
     private $tags = '';
-    private $is_draft = false;
+    private $isDraft = false;
     private $type = 'article';
     private $covers = '[]';
     private $commentCount = 0;
@@ -173,7 +173,7 @@ class ViewArticleModel extends BaseModel
      */
     public function isDraft(): bool
     {
-        return $this->is_draft;
+        return $this->isDraft;
     }
 
     /**
@@ -262,7 +262,7 @@ class ViewArticleModel extends BaseModel
             'cate_name' => 'cateName',
             'cate_alias' => 'cateAlias',
             'tags' => 'tags',
-            'is_draft' => 'is_draft',
+            'is_draft' => 'isDraft',
             'type' => 'type',
             'covers' => 'covers',
             'comment_count' => 'commentCount',

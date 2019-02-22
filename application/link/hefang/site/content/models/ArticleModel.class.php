@@ -14,17 +14,17 @@ class ArticleModel extends BaseModel
     private $title;
     private $keywords;
     private $description;
-    private $post_time = 0;
-    private $last_alter_time = 0;
-    private $up_count = 0;
-    private $read_count = 0;
+    private $postTime = 0;
+    private $lastAlterTime = 0;
+    private $upCount = 0;
+    private $readCount = 0;
     private $content;
     private $catalog;
     private $password;
     private $enable = true;
-    private $cate_id;
+    private $cateId;
     private $id;
-    private $is_draft = false;
+    private $isDraft = false;
     private $type = 'article';
     private $covers = '[]';
     private $authorId;
@@ -227,16 +227,16 @@ SQL
      */
     public function getPostTime(): float
     {
-        return $this->post_time;
+        return $this->postTime;
     }
 
     /**
-     * @param float $post_time
+     * @param float $postTime
      * @return ArticleModel
      */
-    public function setPostTime(float $post_time): ArticleModel
+    public function setPostTime(float $postTime): ArticleModel
     {
-        $this->post_time = floor($post_time);
+        $this->postTime = floor($postTime);
         return $this;
     }
 
@@ -245,16 +245,16 @@ SQL
      */
     public function getLastAlterTime(): int
     {
-        return $this->last_alter_time;
+        return $this->lastAlterTime;
     }
 
     /**
-     * @param int $last_alter_time
+     * @param int $lastAlterTime
      * @return ArticleModel
      */
-    public function setLastAlterTime(int $last_alter_time): ArticleModel
+    public function setLastAlterTime(int $lastAlterTime): ArticleModel
     {
-        $this->last_alter_time = $last_alter_time;
+        $this->lastAlterTime = $lastAlterTime;
         return $this;
     }
 
@@ -263,16 +263,16 @@ SQL
      */
     public function getUpCount(): int
     {
-        return $this->up_count;
+        return $this->upCount;
     }
 
     /**
-     * @param int $up_count
+     * @param int $upCount
      * @return ArticleModel
      */
-    public function setUpCount(int $up_count): ArticleModel
+    public function setUpCount(int $upCount): ArticleModel
     {
-        $this->up_count = $up_count;
+        $this->upCount = $upCount;
         return $this;
     }
 
@@ -281,16 +281,16 @@ SQL
      */
     public function getReadCount(): int
     {
-        return $this->read_count;
+        return $this->readCount;
     }
 
     /**
-     * @param int $read_count
+     * @param int $readCount
      * @return ArticleModel
      */
-    public function setReadCount(int $read_count): ArticleModel
+    public function setReadCount(int $readCount): ArticleModel
     {
-        $this->read_count = $read_count;
+        $this->readCount = $readCount;
         return $this;
     }
 
@@ -371,16 +371,16 @@ SQL
      */
     public function getCateId()
     {
-        return $this->cate_id;
+        return $this->cateId;
     }
 
     /**
-     * @param string $cate_id
+     * @param string $cateId
      * @return ArticleModel
      */
-    public function setCateId($cate_id): ArticleModel
+    public function setCateId($cateId): ArticleModel
     {
-        $this->cate_id = $cate_id;
+        $this->cateId = $cateId;
         return $this;
     }
 
@@ -407,16 +407,16 @@ SQL
      */
     public function isDraft(): bool
     {
-        return $this->is_draft;
+        return $this->isDraft;
     }
 
     /**
-     * @param bool $is_draft
+     * @param bool $isDraft
      * @return ArticleModel
      */
-    public function setIsDraft(bool $is_draft): ArticleModel
+    public function setIsDraft(bool $isDraft): ArticleModel
     {
-        $this->is_draft = $is_draft;
+        $this->isDraft = $isDraft;
         return $this;
     }
 
@@ -509,17 +509,17 @@ SQL
             'title' => 'title',
             'keywords' => 'keywords',
             'description' => 'description',
-            'post_time' => 'post_time',
-            'last_alter_time' => 'last_alter_time',
-            'up_count' => 'up_count',
-            'read_count' => 'read_count',
+            'post_time' => 'postTime',
+            'last_alter_time' => 'lastAlterTime',
+            'up_count' => 'upCount',
+            'read_count' => 'readCount',
             'content' => 'content',
             'catalog' => 'catalog',
             'password' => 'password',
             'enable' => 'enable',
-            'cate_id' => 'cate_id',
+            'cate_id' => 'cateId',
             'id' => 'id',
-            'is_draft' => 'is_draft',
+            'is_draft' => 'isDraft',
             'type' => 'type',
             'covers' => 'covers',
             'reprint_from' => 'reprintFrom'

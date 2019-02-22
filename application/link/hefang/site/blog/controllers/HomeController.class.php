@@ -110,13 +110,13 @@ class HomeController extends BaseController
                 [$this->_sort()]
             );
             if ($pager->getTotal() > 5) {
-                $hotSearch = Mvc::getCache()->get('hostSearch', []);
+                $hotSearch = Mvc::getCache()->get('hotSearch', []);
                 isset($hotSearch[$search]) ? ($hotSearch[$search] += 1) : ($hotSearch[$search] = 1);
                 $hotSearch = array_filter($hotSearch, function ($count, $item) {
                     return $count >= 5;
                 });
                 asort($hotSearch);
-                Mvc::getCache()->set('hostSearch', $hotSearch);
+                Mvc::getCache()->set('hotSearch', $hotSearch);
             }
             return $this->_template($this->makeData([
                 'pager' => $pager,
@@ -168,6 +168,8 @@ class HomeController extends BaseController
             return $this->_template($this->makeData([
                 'article' => $m,
                 'title' => $m->getTitle(),
+                'keywords' => $m->getKeywords(),
+                'description' => $m->getDescription(),
                 'commentEnable' => Mvc::getConfig('comment|enable', true),
                 'needPassword' => $needPassword,
                 'needPasswordMessage' => $needPasswordMessage
@@ -249,7 +251,7 @@ class HomeController extends BaseController
 
         }
 
-        $hostSearch = array_keys(Mvc::getCache()->get('hostSearch', []));
+        $hotSearch = array_keys(Mvc::getCache()->get('hotSearch', []));
 
         return array_merge([
             'urlPrefix' => '',
@@ -260,7 +262,7 @@ class HomeController extends BaseController
             'icp' => Mvc::getConfig('site|icp', ''),
             'login' => $this->_getLogin(),
             'tags' => $tags,
-            'hostSearch' => $hostSearch,
+            'hotSearch' => $hotSearch,
             'highlight' => null,
             'search' => $this->_request("search")
         ], $array ?: []);

@@ -5,7 +5,8 @@ function articleDate(\link\hefang\site\content\models\ViewArticleModel $model): 
     $year = +date('Y', $model->getPostTime());
     $month = date('m', $model->getPostTime());
     $day = date('d', $model->getPostTime());
-    return "<a href='{:urlPrefix}/{$year}/'>{$year}</a>年<a href='{:urlPrefix}/{$year}/{$month}/'>{$month}</a>月<a href='{:urlPrefix}/{$year}/{$month}/{$day}/'>{$day}</a>日";
+    $urlPrefix = link\hefang\mvc\Mvc::getUrlPrefix();
+    return "<a href='{$urlPrefix}/{$year}/'>{$year}</a>年<a href='{$urlPrefix}/{$year}/{$month}/'>{$month}</a>月<a href='{$urlPrefix}/{$year}/{$month}/{$day}/'>{$day}</a>日";
 }
 
 function highlight(string $html, string $lightWords = null): string

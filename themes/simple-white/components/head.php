@@ -8,7 +8,7 @@
 <title>{:title}-{:name}</title>
 <meta name="author" content="hefang">
 <meta name="keywords" content="{:keywords}">
-<meta name="theme-color" content="#00f0f0">
+<!--<meta name="theme-color" content="#fefefe">-->
 <meta name="description" content="{:description}">
 <!--[if lte IE 9]>
 <link rel="stylesheet" href="{:themeUrl}/css/ie8.css">

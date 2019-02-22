@@ -3,6 +3,7 @@
 namespace link\hefang\site\content\controllers;
 defined('PROJECT_NAME') or die("Access Refused");
 
+use link\hefang\helpers\ParseHelper;
 use link\hefang\helpers\RandomHelper;
 use link\hefang\helpers\StringHelper;
 use link\hefang\helpers\TimeHelper;
@@ -68,11 +69,14 @@ class ArticleController extends BaseController
         $catalog = $this->_post("catalog");
         $password = $this->_post("password");
         $cateId = $this->_post("cateId");
-        $isDraft = $this->_post("isDraft", 'true') === 'true';
+        $isDraft = ParseHelper::parseBoolean($this->_post("isDraft", 'true'), true);
         $covers = $this->_post("covers");
         $tags = $this->_post("tags");
 
         try {
+            if (StringHelper::isNullOrBlank($id) || strlen($id) !== 40) {
+                return $this->_apiFailed('参数异常');
+            }
             $m = ArticleModel::get($id);
             if (!($m instanceof ArticleModel) || !$m->isEnable()) {
                 return $this->_apiFailed('该文章不存在或已被删除');
@@ -88,10 +92,30 @@ class ArticleController extends BaseController
                 ->setIsDraft($isDraft)
                 ->setCovers(is_array($covers) ? $covers : []);
             $res = ArticleModel::alter($m, is_array($tags) ? $tags : []);
-            return $res ? $this->_apiSuccess() : $this->_apiFailed('添加文章失败');
+            return $res ? $this->_apiSuccess() : $this->_apiFailed('更新文章异常');
         } catch (\Throwable $e) {
-            Mvc::getLogger()->error("新建文章异常", $e->getMessage(), $e);
+            Mvc::getLogger()->error("更新文章异常", $e->getMessage(), $e);
             return $this->_apiFailed($e->getMessage());
+        }
+    }
+
+    public function draft(): baseview
+    {
+        $this->_checkAdmin();
+        try {
+            $id = $this->_request('id');
+            $isDraft = ParseHelper::parseBoolean($this->_post("isDraft", 'true'), true);
+            if (StringHelper::isNullOrBlank($id) || strlen($id) !== 40) {
+                return $this->_apiFailed('参数异常');
+            }
+            $m = ArticleModel::get($id);
+            if (!($m instanceof ArticleModel) || !$m->isEnable()) {
+                return $this->_apiFailed('该文章不存在或已被删除');
+            }
+            $res = $m->setIsDraft($isDraft)->update(['is_draft']);
+            return $res ? $this->_apiSuccess() : $this->_apiFailed('更新文章状态失败');
+        } catch (\Throwable $e) {
+            return $this->_exception($e, null, "更新文章状态异常");
         }
     }
 
