@@ -1,0 +1,24 @@
+$navbar-height: 3.6rem;
+$side-width: 20%;
+body {
+  padding-top: $navbar-height;
+}
+
+.container {
+  width: 95%;
+}
+
+.main {
+}
+
+.aside {
+  width: $side-width;
+}
+
+.navbar {
+  height: $navbar-height;
+  line-height: $navbar-height;
+  &-item {
+    height: $navbar-height;
+  }
+}

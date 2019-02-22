@@ -1,0 +1,10 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea/
+juewei-cms.iml
+/libraries/
+/data/
+test/
+*.js
+*.map
+*.css
+node_modules/

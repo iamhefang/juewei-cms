@@ -1,0 +1,36 @@
+{
+  "id": "simple-white",
+  "name": "简约白",
+  "version": "1.0.0",
+  "cover": null,
+  "author": {
+    "name": "hefang",
+    "email": "he@hefang.link",
+    "blog": "https://hefang.link"
+  },
+  "keywords": [
+    "简约",
+    "白色",
+    "内置",
+    "自带"
+  ],
+  "description": "<span style='color:red'>主题描述, 可以是html</span>",
+  "url": "https://github.com/iamhefang/theme-simple-white",
+  "configs": [
+    {
+      "key": "show_swiper",
+      "name": "显示轮播图",
+      "type": "bool",
+      "default": true,
+      "placeholder": "是否显示轮播图"
+    }
+  ],
+  "files": [
+    "js/index.js",
+    "js/common.js",
+    "js/hefang-ui-jquery-swiper.js",
+    "css/index.css",
+    "css/swiper.css",
+    "css/ie9.css"
+  ]
+}
