@@ -5,10 +5,14 @@ defined('PROJECT_NAME') or die("Access Refused");
 
 use link\hefang\exceptions\FileNotFoundException;
 use link\hefang\helpers\FileHelper;
+use link\hefang\helpers\RandomHelper;
 use link\hefang\helpers\StringHelper;
+use link\hefang\helpers\TimeHelper;
 use link\hefang\mvc\controllers\BaseController;
+use link\hefang\mvc\Mvc;
 use link\hefang\mvc\views\BaseView;
 use link\hefang\mvc\views\TextView;
+use link\hefang\site\content\models\FileModel;
 use link\hefang\site\ueditor\models\UEditorUploader;
 
 class UEditorController extends BaseController
@@ -138,7 +142,7 @@ class UEditorController extends BaseController
 
     public function uploadfile(string $type = null): BaseView
     {
-        $this->_checkAdmin();
+        $login = $this->_checkAdmin();
         if (StringHelper::isNullOrBlank($type)) {
             $this->config = [
                 "pathFormat" => $this->allConfig['filePathFormat'],
@@ -148,6 +152,22 @@ class UEditorController extends BaseController
             $this->fieldName = $this->allConfig['fileFieldName'];
         }
         $uploader = new UEditorUploader($this->fieldName, $this->config, $this->type);
+        $m = new FileModel();
+        try {
+            $m->setId(RandomHelper::guid())
+                ->setIsSecret(false)
+                ->setFileName($uploader->getOriName())
+                ->setMimeType($uploader->getMimeType())
+                ->setSize($uploader->getFileSize())
+                ->setSavePath($uploader->getFilePath())
+                ->setUploadTime(TimeHelper::formatMillis())
+                ->setLoginId($login->getId())
+                ->setEnable(true)
+                ->setUploadFrom($this->_header('referer'))
+                ->insert();
+        } catch (\Throwable $e) {
+            Mvc::getLogger()->error('保存文件信息失败', $e->getMessage(), $e);
+        }
         return $this->result($uploader->getFileInfo());
     }
 

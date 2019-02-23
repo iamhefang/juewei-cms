@@ -18,6 +18,7 @@ class UEditorUploader
     private $filePath; //完整文件名,即从当前配置目录开始的URL
     private $fileSize; //文件大小
     private $fileType; //文件类型
+    private $mimeType;
     private $stateInfo; //上传状态信息,
     private $stateMap = array( //上传状态映射表，国际化用户需考虑此处数据的国际化
         "SUCCESS", //上传成功标记，在UEditor中内不可改变，否则flash判断会出错
@@ -91,6 +92,7 @@ class UEditorUploader
         $this->fullName = $this->getFullName();
         $this->filePath = $this->getFilePath();
         $this->fileName = $this->getFileName();
+        $this->mimeType = $file['type'];
         $dirname = dirname($this->filePath);
 
         //检查文件大小是否超出限制
@@ -124,7 +126,7 @@ class UEditorUploader
 
     /**
      * 处理base64编码的图片上传
-     * @return mixed
+     * @return void
      */
     private function upBase64()
     {
@@ -137,6 +139,7 @@ class UEditorUploader
         $this->fullName = $this->getFullName();
         $this->filePath = $this->getFilePath();
         $this->fileName = $this->getFileName();
+
         $dirname = dirname($this->filePath);
 
         //检查文件大小是否超出限制
@@ -159,13 +162,13 @@ class UEditorUploader
             $this->stateInfo = $this->getStateInfo("ERROR_WRITE_CONTENT");
         } else { //移动成功
             $this->stateInfo = $this->stateMap[0];
+            $this->mimeType = mime_content_type($this->filePath);
         }
-
     }
 
     /**
      * 拉取远程图片
-     * @return mixed
+     * @return void
      */
     private function saveRemote()
     {
@@ -212,6 +215,7 @@ class UEditorUploader
         $this->fileType = $this->getFileExt();
         $this->fullName = $this->getFullName();
         $this->filePath = $this->getFilePath();
+        $this->mimeType = mime_content_type($this->filePath);
         $this->fileName = $this->getFileName();
         $dirname = dirname($this->filePath);
 
@@ -222,7 +226,7 @@ class UEditorUploader
         }
 
         //检查文件内容是否真的是图片
-        if (substr(mime_content_type($this->filePath), 0, 5) != 'image') {
+        if (substr($this->mimeType, 0, 5) != 'image') {
             $this->stateInfo = $this->getStateInfo("ERROR_TYPE_NOT_ALLOWED");
             return;
         }
@@ -242,7 +246,6 @@ class UEditorUploader
         } else { //移动成功
             $this->stateInfo = $this->stateMap[0];
         }
-
     }
 
     /**
@@ -259,7 +262,7 @@ class UEditorUploader
      * 获取文件扩展名
      * @return string
      */
-    private function getFileExt()
+    public function getFileExt()
     {
         return strtolower(strrchr($this->oriName, '.'));
     }
@@ -268,7 +271,7 @@ class UEditorUploader
      * 重命名文件
      * @return string
      */
-    private function getFullName()
+    public function getFullName()
     {
         //替换日期事件
         $t = time();
@@ -305,7 +308,7 @@ class UEditorUploader
      * 获取文件名
      * @return string
      */
-    private function getFileName()
+    public function getFileName()
     {
         return substr($this->filePath, strrpos($this->filePath, '/') + 1);
     }
@@ -314,7 +317,7 @@ class UEditorUploader
      * 获取文件完整路径
      * @return string
      */
-    private function getFilePath()
+    public function getFilePath()
     {
         $fullname = $this->fullName;
         $rootPath = $_SERVER['DOCUMENT_ROOT'];
@@ -358,5 +361,77 @@ class UEditorUploader
             "type" => $this->fileType,
             "size" => $this->fileSize
         );
+    }
+
+    /**
+     * @return string
+     */
+    public function getFileField(): string
+    {
+        return $this->fileField;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @return array
+     */
+    public function getConfig(): array
+    {
+        return $this->config;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOriName()
+    {
+        return $this->oriName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFileSize()
+    {
+        return $this->fileSize;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFileType()
+    {
+        return $this->fileType;
+    }
+
+    /**
+     * @return array
+     */
+    public function getStateMap(): array
+    {
+        return $this->stateMap;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMimeType()
+    {
+        return $this->mimeType;
     }
 }

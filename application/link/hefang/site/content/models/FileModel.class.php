@@ -12,7 +12,7 @@ class FileModel extends BaseModel
     private $savePath = '';
     private $fileName = '';
     private $size = 0;
-    private $uploadTime = 0;
+    private $uploadTime = '';
     private $loginId = '';
     private $uploadFrom = '';
     private $mimeType = '';
@@ -92,18 +92,18 @@ class FileModel extends BaseModel
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getUploadTime(): int
+    public function getUploadTime(): string
     {
         return $this->uploadTime;
     }
 
     /**
-     * @param int $uploadTime
+     * @param string $uploadTime
      * @return FileModel
      */
-    public function setUploadTime(int $uploadTime): FileModel
+    public function setUploadTime(string $uploadTime): FileModel
     {
         $this->uploadTime = $uploadTime;
         return $this;

@@ -5,6 +5,7 @@ defined('PROJECT_NAME') or die("Access Refused");
 
 use link\hefang\helpers\TimeHelper;
 use link\hefang\mvc\databases\Sql;
+use link\hefang\mvc\exceptions\SqlException;
 use link\hefang\mvc\models\BaseModel;
 
 
@@ -148,6 +149,17 @@ SQL
         }
 
         return self::database()->transaction($sqls) > 0;
+    }
+
+    public static function up(string $id)
+    {
+        try {
+            self::database()->executeUpdate(new Sql(
+                "UPDATE `article` SET `up_count` = `up_count` + 1 WHERE `id` = :id",
+                ['id' => $id]
+            ));
+        } catch (SqlException $e) {
+        }
     }
 
     /**

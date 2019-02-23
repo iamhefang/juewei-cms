@@ -170,6 +170,16 @@ class ArticleController extends BaseController
         }
     }
 
+    public function up(): BaseView
+    {
+        $id = $this->_request("id");
+        if (strlen($id) != 40) {
+            return $this->_apiFailed('参数异常');
+        }
+        ArticleModel::up($id);
+        return $this->_apiSuccess();
+    }
+
     public function get(string $id = null): BaseView
     {
         $login = $this->_getLogin();

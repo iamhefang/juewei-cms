@@ -1,4 +1,4 @@
-import {Toast} from "hefang-ui-react";
+import {ApiResult, getLocalStorage, setLocalStorage, Toast} from "hefang-ui-react";
 
 const $navbar = $("#navbar")
     , $toggleNav = $("#toggleSideNav")
@@ -6,8 +6,28 @@ const $navbar = $("#navbar")
     , $main = $("#main")
     , $aside = $("#aside")
     , $panelToggle = $('.panel-btn-toggle')
-    , $articleUrl = $('#articleUrl');
+    , $articleUrl = $('#articleUrl')
+    , $upArticle = $('.up-article');
 
+$upArticle.on('click', function () {
+    const $me = $(this)
+        , id = $me.attr('data-id')
+        , upped = getLocalStorage('upped', []) as string[];
+    if (upped.indexOf(id) !== -1) {
+        Toast.show('您已点赞过该文章', {duration: 10000000});
+        return;
+    }
+    $.getJSON("/api/content/article/up.json", {id}, function (res: ApiResult<string>) {
+        if (res.success) {
+            const $count = $me.find('.count')
+                , count = +$count.text();
+            $count.text(count + 1);
+            upped.push(id);
+            setLocalStorage('upped', upped);
+            Toast.show('点赞成功');
+        }
+    })
+});
 $toggleNav.on("click", function () {
     toggleOpen($navbar)
 });
