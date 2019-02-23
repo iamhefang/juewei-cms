@@ -16,3 +16,17 @@ function highlight(string $html, string $lightWords = null): string
         return "<span style='color: red'>{$match[1]}</span>";
     }, $html);
 }
+
+function baiduJsonLD(\link\hefang\site\content\models\ViewArticleModel $article)
+{
+    $alias = $article->getAlias() ?: $article->getId();
+    $json = json_encode([
+        '@context' => 'https://ziyuan.baidu.com/contexts/cambrian.jsonld',
+        '@id' => "https://hefang.link/article/{$alias}.html",
+        'appid' => '1603685781640801',
+        'title' => $article->getTitle(),
+        'images' => json_encode($article->getCovers(), JSON_UNESCAPED_UNICODE),
+        'pubDate' => date('Y-m-d', $article->getPostTime()) . 'T' . date('H:i:s', $article->getPostTime())
+    ], JSON_UNESCAPED_UNICODE);
+    return str_replace('\/', '/', $json);
+}

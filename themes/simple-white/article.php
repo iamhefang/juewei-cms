@@ -10,13 +10,14 @@
             commentCount = <?=$article->getCommentCount()?>,
             commentCaptchaEnable = <?=link\hefang\mvc\Mvc::getConfig('comment|captcha_enable', false) ? 'true' : 'false'?>
     </script>
+    <script type="application/ld+json"><?=baiduJsonLD($article)?></script>
     <script defer src="/admin/comment.js?nocache={func:rand(1,100000000)}"></script>
 </head>
 <body>
 {inc:components/nav.php}
 <div class="container display-flex-row">
     <main class="main flex-1" id="main">
-        <article class="block">
+        <article class="block article">
             <h1>{article.getTitle()}</h1>
             {inc:components/articleInfo.php}
             <hr>

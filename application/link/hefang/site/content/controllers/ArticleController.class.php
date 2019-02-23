@@ -44,6 +44,7 @@ class ArticleController extends BaseController
                 ->setCatalog($catalog)
                 ->setPassword($password)
                 ->setPostTime(TimeHelper::currentTimeMillis())
+                ->setLastAlterTime(TimeHelper::currentTimeMillis())
                 ->setCateId($cateId)
                 ->setIsDraft($isDraft)
                 ->setType($type)

@@ -27,3 +27,12 @@
 <script src="{:themeUrl}/js/hefang-ui-jquery-swiper.js"></script>
 <script src="{:themeUrl}/js/common.js"></script>
 <script defer src="{:themeUrl}/js/index.js"></script>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?4a89ce8c9d29f5614929f5dd5b54d279";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>

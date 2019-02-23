@@ -7,6 +7,7 @@ use link\hefang\helpers\RandomHelper;
 use link\hefang\helpers\StringHelper;
 use link\hefang\helpers\TimeHelper;
 use link\hefang\mvc\controllers\BaseController;
+use link\hefang\mvc\databases\Sql;
 use link\hefang\mvc\databases\SqlSort;
 use link\hefang\mvc\exceptions\SqlException;
 use link\hefang\mvc\Mvc;
@@ -34,7 +35,8 @@ class HomeController extends BaseController
                 $this->_pageIndex(),
                 $this->_pageSize(),
                 null,
-                $where
+                $where,
+                [new SqlSort('last_alter_time', SqlSort::TYPE_DESC), new SqlSort('read_count')]
             );
 
             $swipers = [];
@@ -163,6 +165,9 @@ class HomeController extends BaseController
                     $needPasswordMessage = '密码输入错误, 请重新输入';
                 }
                 $needPassword = $password !== $m->getPassword();
+            }
+            if (!($login instanceof LoginModel) || !$login->isAdmin()) {
+                $m->addRead();
             }
             Mvc::getCache()->set($idOrAlias, $m);
             return $this->_template($this->makeData([

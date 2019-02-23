@@ -1,8 +1,10 @@
 <?php defined('PROJECT_NAME') or die("Access Refused"); ?>
+{incOnce:components/functions.php}
 <!doctype html>
 <html lang="zh">
 <head>
     {inc:components/head.php}
+    <script type="application/ld+json"><?=baiduJsonLD($article)?></script>
 </head>
 <body>
 {inc:components/nav.php}

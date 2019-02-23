@@ -3,6 +3,8 @@
 namespace link\hefang\site\content\models;
 defined('PROJECT_NAME') or die("Access Refused");
 
+use link\hefang\mvc\databases\Sql;
+use link\hefang\mvc\exceptions\SqlException;
 use link\hefang\mvc\models\BaseModel;
 
 
@@ -216,6 +218,17 @@ class ViewArticleModel extends BaseModel
         return $this->reprintFrom;
     }
 
+    public function addRead(int $count = 1)
+    {
+        try {
+            self::database()->executeUpdate(new Sql(
+                "update `article` set `read_count`=`read_count`+:count where `id` = :id",
+                ['id' => $this->getId(), 'count' => $count]
+            ));
+            $this->readCount = $this->readCount + 1;
+        } catch (SqlException $e) {
+        }
+    }
 
     public function toMap(): array
     {
