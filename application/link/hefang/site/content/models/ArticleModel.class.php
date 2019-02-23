@@ -253,20 +253,20 @@ SQL
     }
 
     /**
-     * @return int
+     * @return float
      */
-    public function getLastAlterTime(): int
+    public function getLastAlterTime(): float
     {
         return $this->lastAlterTime;
     }
 
     /**
-     * @param int $lastAlterTime
+     * @param float $lastAlterTime
      * @return ArticleModel
      */
-    public function setLastAlterTime(int $lastAlterTime): ArticleModel
+    public function setLastAlterTime(float $lastAlterTime): ArticleModel
     {
-        $this->lastAlterTime = $lastAlterTime;
+        $this->lastAlterTime = floor($lastAlterTime);
         return $this;
     }
 

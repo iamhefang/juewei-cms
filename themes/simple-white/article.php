@@ -10,7 +10,13 @@
             commentCount = <?=$article->getCommentCount()?>,
             commentCaptchaEnable = <?=link\hefang\mvc\Mvc::getConfig('comment|captcha_enable', false) ? 'true' : 'false'?>
     </script>
-    <script type="application/ld+json"><?=baiduJsonLD($article)?></script>
+    <script src="/statics/ueditor/ueditor.parse.js"></script>
+    <link id="syntaxhighlighter_css" rel="stylesheet" type="text/css"
+          href="/statics/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css">
+    <script id="syntaxhighlighter_js" src="/statics/ueditor/third-party/SyntaxHighlighter/shCore.js"
+            type="text/javascript"
+            defer="defer"></script>
+    <script type="application/ld+json"><?= baiduJsonLD($article) ?></script>
     <script defer src="/admin/comment.js?nocache={func:rand(1,100000000)}"></script>
 </head>
 <body>
@@ -47,6 +53,12 @@
             <?php } ?>
         </div>
         <div id="commentContainer">评论组件加载中......</div>
+        <script>
+            uParse('.article', {
+                rootPath: '/statics/ueditor/',
+                chartContainerHeight: 500
+            })
+        </script>
     </main>
     {inc:components/aside.php}
 </div>

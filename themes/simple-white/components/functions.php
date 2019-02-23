@@ -25,7 +25,9 @@ function baiduJsonLD(\link\hefang\site\content\models\ViewArticleModel $article)
         '@id' => "https://hefang.link/article/{$alias}.html",
         'appid' => '1603685781640801',
         'title' => $article->getTitle(),
-        'images' => json_encode($article->getCovers(), JSON_UNESCAPED_UNICODE),
+        'images' => array_map(function (string $cover) {
+            return 'https://hefang.link' . $cover;
+        }, $article->getCovers()),
         'pubDate' => date('Y-m-d', $article->getPostTime()) . 'T' . date('H:i:s', $article->getPostTime())
     ], JSON_UNESCAPED_UNICODE);
     return str_replace('\/', '/', $json);

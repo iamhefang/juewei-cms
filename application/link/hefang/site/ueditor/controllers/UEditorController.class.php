@@ -143,6 +143,9 @@ class UEditorController extends BaseController
     public function uploadfile(string $type = null): BaseView
     {
         $login = $this->_checkAdmin();
+        if (!Mvc::getConfig("upload|enable", true)) {
+            return $this->result(['state' => '文件上传功能已关闭']);
+        }
         if (StringHelper::isNullOrBlank($type)) {
             $this->config = [
                 "pathFormat" => $this->allConfig['filePathFormat'],
