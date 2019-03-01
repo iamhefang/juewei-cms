@@ -10,6 +10,7 @@ html, body {
   background: #f8f8f8;
   color: #555;
   word-break: break-all;
+  line-height: 1.4;
 }
 
 body {
@@ -44,6 +45,10 @@ a {
   height: $navbar-height;
   line-height: $navbar-height;
   z-index: 3;
+  transition: all .35s ease;
+  &.shadow {
+    box-shadow: 0 0 .5rem rgba(0, 0, 0, 0.67);
+  }
   &-brand {
     font-size: 1.5rem;
   }
@@ -105,24 +110,24 @@ a {
 }
 
 .aside {
-  padding: $spacing-size $spacing-size / 2;
-  min-width: 15rem;
-  max-width: 25rem;
-  width: $side-width;
+  &-container {
+    padding: $spacing-size $spacing-size / 2;
+    min-width: 15rem;
+    max-width: 25rem;
+    width: $side-width;
+  }
 }
 
 .block {
   position: relative;
   margin-right: .5rem;
   box-shadow: 0 2px 5px 0 rgba(146, 146, 146, .1);
-  padding: .8rem;
+  padding: 2rem;
   box-sizing: border-box;
   background: #fff;
   margin-bottom: 1rem;
   width: auto;
-  & + .block {
-    margin-top: $spacing-size;
-  }
+  border-radius: .2rem;
 }
 
 .article {
@@ -130,6 +135,10 @@ a {
     &-item {
       position: relative;
       overflow: hidden;
+      transition: all .35s;
+      &:hover {
+        box-shadow: 0 0 .6rem #919191;
+      }
       a {
         color: #2d2926;
         text-decoration: none;
@@ -174,17 +183,46 @@ a {
   img {
     max-width: 100%;
   }
+  .info {
+    margin: .3rem 0;
+    font-size: .9rem;
+    color: #6f6f6f;
+    a {
+      color: inherit;
+    }
+  }
+  h1 {
+    font-size: 1.8rem;
+  }
+  //h2 {
+  //  font-size: 1.7rem;
+  //}
+  //h3 {
+  //  font-size: 1.6rem;
+  //}
+  //h4 {
+  //  font-size: 1.6rem;
+  //}
+  //h5 {
+  //  font-size: 1.5em;
+  //}
+  //h6 {
+  //  font-size: 1.4rem;
+  //}
 }
 
 .panel {
-  border: thin solid #e1e1e1;
+  border: thin solid #f2f2f2;
   background: white;
+  border-radius: .3rem;
+  overflow: hidden;
+  box-shadow: 0 0 0.4rem #efefef;
   &-header, &-content {
     box-sizing: border-box;
   }
   &-header {
-    background: #efefef;
-    padding: .4rem;
+    background: #fafafa;
+    padding: .6rem .9rem;
   }
   &-btn-toggle {
     cursor: pointer;
@@ -193,7 +231,11 @@ a {
     }
   }
   &-content {
-    padding: .6rem;
+    padding: .8rem;
+    line-height: 1.4;
+    p, h1, h2, h3, h4, h5, h6 {
+      margin: 0;
+    }
   }
   &[data-open=false] {
     .panel-btn-toggle {
@@ -248,8 +290,17 @@ a {
 }
 
 .tag-link {
-  margin: .2rem;
   line-height: 1.5;
+  background: #f1f1f1;
+  padding: .2rem .4rem;
+  border-radius: .2rem;
+  margin: .2rem;
+  display: inline-block;
+  transition: all .35s;
+  &:hover {
+    background-color: #00a4ff;
+    color: white;
+  }
 }
 
 .qrcode {

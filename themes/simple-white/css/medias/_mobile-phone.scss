@@ -65,7 +65,20 @@ body {
   }
 }
 
-.aside {
+.article-list-item {
+  .title {
+    font-size: 1.2rem;
+  }
+  .description {
+    font-size: .9rem;
+  }
+}
+
+.block {
+  padding: .8rem;
+}
+
+.aside-container {
   width: $side-width;
   display: none;
 }

@@ -1,13 +1,19 @@
 import {ApiResult, getLocalStorage, setLocalStorage, Toast} from "hefang-ui-react";
 
-const $navbar = $("#navbar")
+const $win = $(window)
+    , $doc = $(document)
+    , $navbar = $("#navbar")
     , $toggleNav = $("#toggleSideNav")
     , $navItems = $('.navbar-item')
     , $main = $("#main")
     , $aside = $("#aside")
+    , $sideContainer = $('.aside-container')
     , $panelToggle = $('.panel-btn-toggle')
     , $articleUrl = $('#articleUrl')
-    , $upArticle = $('.up-article');
+    , $upArticle = $('.up-article')
+    , sideHeight = $aside.outerHeight();
+
+let sideWidth = $aside.outerWidth(), mainWidth = $main.outerWidth(), navHeight = $navbar.outerHeight();
 
 $upArticle.on('click', function () {
     const $me = $(this)
@@ -28,6 +34,7 @@ $upArticle.on('click', function () {
         }
     })
 });
+
 $toggleNav.on("click", function () {
     toggleOpen($navbar)
 });
@@ -45,7 +52,6 @@ $panelToggle.on("click", function (e) {
     $content.slideToggle(400);
 });
 
-
 $articleUrl.val(location.href.replace(location.hash, ''))
     .on('focus', function () {
         (this as HTMLInputElement).select();
@@ -59,6 +65,37 @@ $articleUrl.val(location.href.replace(location.hash, ''))
         }
     });
 
+$doc.on("scroll", function () {
+    const docScrollTop = $doc.scrollTop();
+    //给导航栏添加/删除阴影
+    if (docScrollTop > navHeight) {
+        $navbar.hasClass('shadow') || $navbar.addClass("shadow")
+    } else if (docScrollTop <= navHeight / 3) {
+        $navbar.hasClass('shadow') && $navbar.removeClass("shadow");
+    }
+
+    //固定侧边
+    if (window.innerWidth < 16 * 32) {
+        return;
+    }
+    if (docScrollTop > sideHeight - window.innerHeight) {
+        // console.log("need fixed");
+        // $main.removeClass("flex-1")
+        //     .css('width', mainWidth);
+        // $sideContainer.css({
+        //     position: 'absolute',
+        //     right: 0,
+        //     bottom: 0
+        // })
+    }
+
+});
+
+$win.on("resize", function () {
+    sideWidth = $aside.outerWidth();
+    mainWidth = $main.outerWidth();
+    navHeight = $navbar.outerHeight()
+});
 
 function toggleOpen($dom: JQuery, open: boolean = null) {
     const willOpen = open === null ? ($dom.attr("data-open") === 'false') : open;

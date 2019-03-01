@@ -11,8 +11,12 @@ body {
 .main {
 }
 
-.aside {
+.aside-container {
   width: $side-width;
+}
+
+.block {
+  padding: 1rem;
 }
 
 .navbar {

@@ -42,14 +42,21 @@
             {article.getContent()}
             {endif}
         </article>
-        <div class="block text-center">
-            <?php if (strlen(article($article)->getReprintFrom()) > 10) { ?>
+        <div class="block">
+            <?php if (strlen($article->getReprintFrom()) > 10) { ?>
                 <p>该文章转载自</p>
                 <input type="text" class="hui-input display-block text-center" readonly
-                       value="<?= article($article)->getReprintFrom() ?>"/>
+                       value="<?= $article->getReprintFrom() ?>"/>
             <?php } else { ?>
-                <label for="articleUrl" class="display-block form-group">该文章原创, 转载请注明出处</label>
-                <input type="text" class="hui-input display-block text-center" id="articleUrl"/>
+                <!--                <label for="articleUrl" class="display-block form-group">该文章原创, 转载请注明出处</label>-->
+                <!--                <input type="text" class="hui-input display-block text-center" id="articleUrl"/>-->
+
+                <div>版权声明：<a href="https://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
+                </div>
+                <div>发表时间：{func:articleDate($article)}</div>
+                <div>相关标签：<?= join(", ", array_map(function ($tag) {
+                        return "<a href='/tag/{$tag}'>{$tag}</a>";
+                    }, $article->getTags())) ?></div>
             <?php } ?>
         </div>
         <div id="commentContainer">评论组件加载中......</div>
