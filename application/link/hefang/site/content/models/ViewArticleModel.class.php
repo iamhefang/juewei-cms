@@ -18,7 +18,8 @@ class ViewArticleModel extends BaseModel
     private $lastAlterTime = 0;
     private $upCount = 0;
     private $readCount = 0;
-    private $content = '';
+    private $html = '';
+    private $markdown = '';
     private $catalog = '';
     private $password = '';
     private $enable = true;
@@ -101,9 +102,17 @@ class ViewArticleModel extends BaseModel
     /**
      * @return string
      */
-    public function getContent()
+    public function getHtml()
     {
-        return $this->content;
+        return $this->html;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMarkdown(): string
+    {
+        return $this->markdown;
     }
 
     /**
@@ -266,7 +275,8 @@ class ViewArticleModel extends BaseModel
             'last_alter_time' => 'lastAlterTime',
             'up_count' => 'upCount',
             'read_count' => 'readCount',
-            'content' => 'content',
+            'html' => 'html',
+            'markdown' => 'markdown',
             'catalog' => 'catalog',
             'password' => 'password',
             'enable' => 'enable',

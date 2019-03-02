@@ -39,7 +39,7 @@
                        placeholder="请输入文章密码">
             </form>
             {else}
-            {article.getContent()}
+            {article.getHtml()}
             {endif}
         </article>
         <div class="block">

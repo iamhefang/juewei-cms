@@ -64,7 +64,7 @@ class LoginController extends BaseController
         if (method_exists($this, $type)) {
             $loginId = $this->_request("loginId");
             if ($login->isSuperAdmin() || ($login->isAdmin() && $loginId !== 'root')) {
-                if ($loginId === $login->getId()) {
+                if (StringHelper::isNullOrBlank($loginId) || $loginId === $login->getId()) {
                     $user = $login;
                 } else {
                     try {
@@ -98,7 +98,7 @@ class LoginController extends BaseController
     private function password(LoginModel $user): BaseView
     {
         $old = $this->_post("old");
-        $new = $this->_post("new");
+        $new = $this->_post("pwd");
         $renew = $this->_post("renew");
         if (strlen($old) !== 72) {
             return $this->_apiFailed("参数异常");

@@ -19,7 +19,8 @@ class ArticleModel extends BaseModel
     private $lastAlterTime = 0;
     private $upCount = 0;
     private $readCount = 0;
-    private $content;
+    private $html;
+    private $markdown;
     private $catalog;
     private $password;
     private $enable = true;
@@ -58,7 +59,7 @@ SQL
                     'title' => $m->getTitle(),
                     'keywords' => $m->getKeywords(),
                     'description' => $m->getDescription(),
-                    'content' => $m->getContent(),
+                    'content' => $m->getHtml(),
                     'password' => $m->getPassword(),
                     'id' => $m->getId(),
                     'is_draft' => $m->isDraft(),
@@ -126,7 +127,7 @@ SQL
                     'keywords' => $m->getKeywords(),
                     'description' => $m->getDescription(),
                     'post_time' => TimeHelper::formatMillis("Y-m-d H:i:s", $m->getPostTime()),
-                    'content' => $m->getContent(),
+                    'content' => $m->getHtml(),
                     'password' => $m->getPassword(),
                     'id' => $m->getId(),
                     'is_draft' => $m->isDraft(),
@@ -309,18 +310,36 @@ SQL
     /**
      * @return string
      */
-    public function getContent()
+    public function getHtml()
     {
-        return $this->content;
+        return $this->html;
     }
 
     /**
-     * @param string $content
+     * @param string $html
      * @return ArticleModel
      */
-    public function setContent($content): ArticleModel
+    public function setHtml($html): ArticleModel
     {
-        $this->content = $content;
+        $this->html = $html;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getMarkdown()
+    {
+        return $this->markdown;
+    }
+
+    /**
+     * @param string $markdown
+     * @return ArticleModel
+     */
+    public function setMarkdown($markdown)
+    {
+        $this->markdown = $markdown;
         return $this;
     }
 
@@ -525,7 +544,8 @@ SQL
             'last_alter_time' => 'lastAlterTime',
             'up_count' => 'upCount',
             'read_count' => 'readCount',
-            'content' => 'content',
+            'html' => 'html',
+            'markdown' => 'markdown',
             'catalog' => 'catalog',
             'password' => 'password',
             'enable' => 'enable',
