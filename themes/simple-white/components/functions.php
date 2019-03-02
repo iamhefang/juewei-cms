@@ -32,3 +32,20 @@ function baiduJsonLD(\link\hefang\site\content\models\ViewArticleModel $article)
     ], JSON_UNESCAPED_UNICODE);
     return str_replace('\/', '/', $json);
 }
+
+function topArticle(string $type): array
+{
+    try {
+        $pager = \link\hefang\site\content\models\ArticleModel::pager(
+            1,
+            5,
+            null,
+            "`is_draft` = false AND `enable` = true AND `type` = 'article'",
+            [new \link\hefang\mvc\databases\SqlSort($type === 'new' ? "post_time" : "read_count", \link\hefang\mvc\databases\SqlSort::TYPE_DESC)]
+        );
+        return $pager->getData();
+    } catch (Throwable $e) {
+        \link\hefang\mvc\Mvc::getLogger()->error("最新文章列表异常", $e->getMessage(), $e);
+        return [];
+    }
+}

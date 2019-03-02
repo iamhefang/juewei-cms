@@ -8,3 +8,4 @@ test/
 *.map
 *.css
 node_modules/
+/admin/

@@ -11,13 +11,18 @@
             commentCaptchaEnable = <?=link\hefang\mvc\Mvc::getConfig('comment|captcha_enable', false) ? 'true' : 'false'?>
     </script>
     <script src="/statics/ueditor/ueditor.parse.js"></script>
-    <link id="syntaxhighlighter_css" rel="stylesheet" type="text/css"
-          href="/statics/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css">
-    <script id="syntaxhighlighter_js" src="/statics/ueditor/third-party/SyntaxHighlighter/shCore.js"
-            type="text/javascript"
-            defer="defer"></script>
+    <!--    <link id="syntaxhighlighter_css" rel="stylesheet" type="text/css"-->
+    <!--          href="/statics/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css">-->
+
+
+    <!--    <script id="syntaxhighlighter_js" src="/statics/ueditor/third-party/SyntaxHighlighter/shCore.js"-->
+    <!--            type="text/javascript"-->
+    <!--            defer="defer"></script>-->
     <script type="application/ld+json"><?= baiduJsonLD($article) ?></script>
     <script defer src="/admin/comment.js?nocache={func:rand(1,100000000)}"></script>
+    <link rel="stylesheet" href="/statics/github-markdown.css">
+    <link rel="stylesheet" href="/statics/code-prettify/prettify.css">
+    <script src="/statics/code-prettify/prettify.js"></script>
 </head>
 <body>
 {inc:components/nav.php}
@@ -39,7 +44,7 @@
                        placeholder="请输入文章密码">
             </form>
             {else}
-            {article.getHtml()}
+            <div class="markdown-body">{article.getHtml()}</div>
             {endif}
         </article>
         <div class="block">
@@ -61,10 +66,11 @@
         </div>
         <div id="commentContainer">评论组件加载中......</div>
         <script>
-            uParse('.article', {
-                rootPath: '/statics/ueditor/',
-                chartContainerHeight: 500
-            })
+            // uParse('.article', {
+            //     rootPath: '/statics/ueditor/',
+            //     chartContainerHeight: 500
+            // })
+            prettyPrint();
         </script>
     </main>
     {inc:components/aside.php}

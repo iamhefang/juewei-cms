@@ -29,7 +29,7 @@ class ArticleController extends BaseController
         $catalog = $this->_post("catalog");
         $password = $this->_post("password");
         $cateId = $this->_post("cateId");
-        $isDraft = $this->_post("isDraft", 'true') === 'true';
+        $isDraft = ParseHelper::parseBoolean($this->_post("isDraft", 'true'), true);
         $type = $this->_post("type", 'article');
         $covers = $this->_post("covers");
         $tags = $this->_post("tags");

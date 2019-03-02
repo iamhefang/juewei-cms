@@ -52,6 +52,57 @@
                 {endeach}
             </div>
         </div>
+        <?php $topArticles = topArticle('new'); ?>
+        <?php if (count($topArticles) > 0) { ?>
+            <div class="panel">
+                <div class="panel-header display-flex-row">
+                    <div class="flex-1">
+                        <i class="fa fa-newspaper"></i>
+                        最新发表
+                    </div>
+                    <button class="no-border no-background panel-btn-toggle">
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                </div>
+                <div class="panel-content">
+                    <ul class="margin-0" style="padding-left: 1.5rem;">
+                        {each:topArticles as article}
+                        <li>
+                            <a href="{:urlPrefix}/article/<?= $article->getAlias() ?: $article->getId() ?>.html">
+                                {article.getTitle()}
+                            </a>
+                        </li>
+                        {endeach}
+                    </ul>
+                </div>
+            </div>
+        <?php } ?>
+
+        <?php $topArticles = topArticle('hot'); ?>
+        <?php if (count($topArticles) > 0) { ?>
+            <div class="panel">
+                <div class="panel-header display-flex-row">
+                    <div class="flex-1">
+                        <i class="fa fa-newspaper"></i>
+                        最热文章
+                    </div>
+                    <button class="no-border no-background panel-btn-toggle">
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                </div>
+                <div class="panel-content">
+                    <ul class="margin-0" style="padding-left: 1.5rem;">
+                        {each:topArticles as article}
+                        <li>
+                            <a href="{:urlPrefix}/article/<?= $article->getAlias() ?: $article->getId() ?>.html">
+                                {article.getTitle()}
+                            </a>
+                        </li>
+                        {endeach}
+                    </ul>
+                </div>
+            </div>
+        <?php } ?>
         <div class="panel">
             <div class="panel-header display-flex-row">
                 <div class="flex-1">
