@@ -5,4 +5,7 @@
         <img src="https://open.weixin.qq.com/qr/code?username=hefangblog" alt="" style="width: 61.8%">
     </div>
     {func:icp($icp)}
+    <p class="margin-0 padding-0">
+        我的 <a href="https://github.com/iamhefang">Github</a>
+    </p>
 </footer>

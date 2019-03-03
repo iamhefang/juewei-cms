@@ -6,8 +6,8 @@
 </head>
 <body data-theme="white">
 {inc:components/nav.php}
-<div class="container display-flex-row">
-    <main class="main flex-1" id="main">
+<div class="container clearfix">
+    <main class="main" id="main">
         {inc:components/swiper.php}
         <div class="block search-mobile">
             {inc:components/search.php}
@@ -17,5 +17,7 @@
     {inc:components/aside.php}
 </div>
 {inc:components/footer.php}
+
+{inc:components/scroll.php}
 </body>
 </html>

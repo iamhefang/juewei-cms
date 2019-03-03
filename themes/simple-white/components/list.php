@@ -21,7 +21,7 @@
 <?php } ?>
 <?php if (empty(pager($pager)->getData())) { ?>
     <div class="block">
-        <h1>暂无内容</h1>
+        <h1 class="margin-0">暂无内容</h1>
     </div>
 <?php } ?>
 {inc:pager.php}

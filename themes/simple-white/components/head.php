@@ -14,22 +14,23 @@
 <link rel="stylesheet" href="{:themeUrl}/css/ie8.css">
 <script src="//api.jueweikeji.com.cn/statics/html5shiv/html5shiv.min.js"></script>
 <![endif]-->
-<link rel="stylesheet" href="//api.jueweikeji.com.cn/statics/hefang-ui-css/hefang-ui.css">
+<link crossorigin="anonymous" rel="stylesheet" href="//api.jueweikeji.com.cn/statics/hefang-ui-css/1.1.4/hefang-ui.css">
 <link rel="stylesheet" href="{:themeUrl}/css/swiper.css">
 <link rel="stylesheet" href="{:themeUrl}/css/index.css">
 
-<script src="//api.jueweikeji.com.cn/statics/core-js/core.min.js"></script>
-<script src="//api.jueweikeji.com.cn/statics/jquery/3.3.1/jquery.min.js"></script>
-<script src="//api.jueweikeji.com.cn/statics/react/16.3.2/react.development.js"></script>
-<script src="//api.jueweikeji.com.cn/statics/react-dom/16.3.2/react-dom.development.js"></script>
-<script src="//api.jueweikeji.com.cn/statics/hefang-js/index.js"></script>
-<script src="//api.jueweikeji.com.cn/statics/hefang-ui-react/index.js"></script>
+<script crossorigin="anonymous" src="//api.jueweikeji.com.cn/statics/core-js/core.min.js"></script>
+<script crossorigin="anonymous" src="//api.jueweikeji.com.cn/statics/jquery/3.3.1/jquery.min.js"></script>
+<script crossorigin="anonymous" src="//api.jueweikeji.com.cn/statics/react/16.3.2/react.development.js"></script>
+<script crossorigin="anonymous"
+        src="//api.jueweikeji.com.cn/statics/react-dom/16.3.2/react-dom.development.js"></script>
+<script crossorigin="anonymous" src="//api.jueweikeji.com.cn/statics/hefang-js/1.1.7/index.js"></script>
+<script crossorigin="anonymous" src="//api.jueweikeji.com.cn/statics/hefang-ui-react/index.js"></script>
 <script src="{:themeUrl}/js/hefang-ui-jquery-swiper.js"></script>
 <script src="{:themeUrl}/js/common.js"></script>
 <script defer src="{:themeUrl}/js/index.js"></script>
 <script>
     var _hmt = _hmt || [];
-    (function() {
+    (function () {
         var hm = document.createElement("script");
         hm.src = "https://hm.baidu.com/hm.js?4a89ce8c9d29f5614929f5dd5b54d279";
         var s = document.getElementsByTagName("script")[0];

@@ -4,18 +4,18 @@
 <html lang="zh">
 <head>
     {inc:components/head.php}
-    <script type="application/ld+json"><?= baiduJsonLD($article) ?></script>
 </head>
 <body>
 {inc:components/nav.php}
 <div class="container display-flex-row">
     <main class="main flex-1" id="main">
-        <article class="block">
-            <h1>{article.getTitle()}</h1>
-            <hr>
-            {article.getHtml()}
-        </article>
+        <div class="block">
+            <h2>
+                工具组件加载中。。。。
+            </h2>
+        </div>
     </main>
+    <script src="/admin/tools.js"></script>
     {inc:components/aside.php}
 </div>
 {inc:components/footer.php}

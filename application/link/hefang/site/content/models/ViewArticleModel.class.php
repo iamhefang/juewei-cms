@@ -260,7 +260,7 @@ class ViewArticleModel extends BaseModel
     public static function searchableFields(): array
     {
         return [
-            'title', 'keywords', 'description', 'content', 'cate_name', 'tags'
+            'title', 'keywords', 'description', 'markdown', 'cate_name', 'tags'
         ];
     }
 

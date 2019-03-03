@@ -2,7 +2,10 @@
 
 $navbar-height: 4rem;
 $spacing-size: 1rem;
-$side-width: 20%;
+$side-width: 17rem;
+* {
+  box-sizing: border-box;
+}
 
 html, body {
   padding: 0;
@@ -25,14 +28,46 @@ a {
   }
 }
 
-.hui-toast {
+.scroll {
+  $size: 50px;
   position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  height: $size;
+  width: $size;
+  box-shadow: 0 0 .5rem rgba(0, 0, 0, 0.47);
+  border-radius: 50%;
+  z-index: 3;
+  background: white;
+  overflow: hidden;
+  display: none;
+  cursor: pointer;
+  canvas, span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    line-height: $size;
+  }
 }
 
 .container {
+  position: relative;
   margin: auto;
   padding: 0;
   width: 70%;
+}
+
+.clearfix {
+  &:after {
+    content: ' ';
+    height: 0;
+    zoom: 1;
+    display: block;
+    clear: both;
+  }
 }
 
 .navbar {
@@ -56,7 +91,7 @@ a {
     display: inline-block;
     height: $navbar-height;
     line-height: $navbar-height;
-    padding: 0 .4rem;
+    padding: 0 .1rem;
   }
   &-container {
     display: inline-block;
@@ -105,17 +140,22 @@ a {
 }
 
 .main {
-  padding: $spacing-size $spacing-size / 2;
-  box-sizing: border-box;
+  float: left;
+  width: 100%;
+  padding: $spacing-size $side-width + $spacing-size / 2 $spacing-size $spacing-size;
+  z-index: 1;
 }
 
 .aside {
   &-container {
+    position: absolute;
+    right: 0;
+    top: 0;
     padding: $spacing-size $spacing-size / 2;
-    min-width: 15rem;
-    max-width: 25rem;
     width: $side-width;
+    z-index: 2;
   }
+  width: $side-width;
 }
 
 .block {
@@ -159,15 +199,6 @@ a {
         }
       }
       .mark {
-        //position: absolute;
-        //top: -8px;
-        //right: -21px;
-        //transform: rotate(45deg);
-        //background: red;
-        //color: white;
-        //font-size: 0.7rem;
-        //padding: 1rem 1rem 0;
-        //font-style: normal;
         $color: #b2b2b2;
         color: $color;
         font-size: .9rem;

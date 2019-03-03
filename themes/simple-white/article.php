@@ -44,7 +44,12 @@
                        placeholder="请输入文章密码">
             </form>
             {else}
-            <div class="markdown-body">{article.getHtml()}</div>
+            <div class="markdown-body">
+                {article.getHtml()}
+            </div>
+            <script>
+                prettyPrint();
+            </script>
             {endif}
         </article>
         <div class="block">
@@ -65,16 +70,11 @@
             <?php } ?>
         </div>
         <div id="commentContainer">评论组件加载中......</div>
-        <script>
-            // uParse('.article', {
-            //     rootPath: '/statics/ueditor/',
-            //     chartContainerHeight: 500
-            // })
-            prettyPrint();
-        </script>
     </main>
     {inc:components/aside.php}
 </div>
 {inc:components/footer.php}
+
+{inc:components/scroll.php}
 </body>
 </html>

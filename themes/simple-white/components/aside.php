@@ -15,7 +15,7 @@
                 {inc:search.php}
             </div>
         </div>
-        <div class="panel">
+        <div class="panel" data-open="true">
             <div class="panel-header display-flex-row">
                 <div class="flex-1">
                     <i class="fa fa-info-circle"></i>
@@ -54,7 +54,7 @@
         </div>
         <?php $topArticles = topArticle('new'); ?>
         <?php if (count($topArticles) > 0) { ?>
-            <div class="panel">
+            <div class="panel" data-open="true">
                 <div class="panel-header display-flex-row">
                     <div class="flex-1">
                         <i class="fa fa-newspaper"></i>
@@ -80,7 +80,7 @@
 
         <?php $topArticles = topArticle('hot'); ?>
         <?php if (count($topArticles) > 0) { ?>
-            <div class="panel">
+            <div class="panel" data-open="true">
                 <div class="panel-header display-flex-row">
                     <div class="flex-1">
                         <i class="fa fa-newspaper"></i>
@@ -103,7 +103,7 @@
                 </div>
             </div>
         <?php } ?>
-        <div class="panel">
+        <div class="panel" data-open="true">
             <div class="panel-header display-flex-row">
                 <div class="flex-1">
                     <i class="fab fa-weixin"></i>

@@ -66,6 +66,13 @@ class HomeController extends BaseController
 
     }
 
+    public function tools(): BaseView
+    {
+        return $this->_template($this->makeData([
+            'title' => '工具'
+        ]));
+    }
+
     public function tag(string $tag): BaseView
     {
         $this->log();
@@ -95,7 +102,10 @@ class HomeController extends BaseController
     public function search(): BaseView
     {
         $this->log();
-        $search = addslashes($this->_request("search", ''));
+        $search = $this->_request("search", '');
+        $search = trim($search);
+        $search = htmlentities($search);
+
         if (StringHelper::isNullOrBlank($search)) {
             return $this->_exception(null, '请输入搜索内容');
         }
@@ -108,7 +118,7 @@ class HomeController extends BaseController
             $pager = ViewArticleModel::pager(
                 $this->_pageIndex(),
                 $this->_pageSize(),
-                $search, $where,
+                addslashes($search), $where,
                 [$this->_sort()]
             );
             if ($pager->getTotal() > 5) {
@@ -122,7 +132,7 @@ class HomeController extends BaseController
             }
             return $this->_template($this->makeData([
                 'pager' => $pager,
-                'title' => "'{$search}'的搜索结果",
+                'title' => "{$search} 的搜索结果",
                 'highlight' => $search
             ]), 'list');
         } catch (\Throwable $e) {

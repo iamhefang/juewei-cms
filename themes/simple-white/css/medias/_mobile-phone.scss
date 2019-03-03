@@ -1,6 +1,5 @@
 $navbar-height: 3rem;
 $spacing-size: .8rem;
-$side-width: 40%;
 body {
   padding-top: $navbar-height;
 }
@@ -79,7 +78,6 @@ body {
 }
 
 .aside-container {
-  width: $side-width;
   display: none;
 }
 
