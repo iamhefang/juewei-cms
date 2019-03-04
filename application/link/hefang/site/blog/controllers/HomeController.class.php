@@ -73,6 +73,13 @@ class HomeController extends BaseController
         ]));
     }
 
+    public function markdown(): BaseView
+    {
+        return $this->_template($this->makeData([
+            'title' => '在线Markdown编辑器'
+        ]));
+    }
+
     public function tag(string $tag): BaseView
     {
         $this->log();

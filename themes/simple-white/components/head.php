@@ -24,7 +24,7 @@
 <script crossorigin="anonymous"
         src="//api.jueweikeji.com.cn/statics/react-dom/16.3.2/react-dom.development.js"></script>
 <script crossorigin="anonymous" src="//api.jueweikeji.com.cn/statics/hefang-js/1.1.7/index.js"></script>
-<script crossorigin="anonymous" src="//api.jueweikeji.com.cn/statics/hefang-ui-react/index.js"></script>
+<script crossorigin="anonymous" src="//api.jueweikeji.com.cn/statics/hefang-ui-react/1.0.15/index.js"></script>
 <script src="{:themeUrl}/js/hefang-ui-jquery-swiper.js"></script>
 <script src="{:themeUrl}/js/common.js"></script>
 <script defer src="{:themeUrl}/js/index.js"></script>

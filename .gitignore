@@ -9,3 +9,4 @@ test/
 *.css
 node_modules/
 /admin/
+/statics/

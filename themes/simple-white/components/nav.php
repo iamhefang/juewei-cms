@@ -6,11 +6,14 @@
             <a href="/" class="navbar-item">
                 <span><i class="fa fa-home"></i> 首页</span>
             </a>
-            <a href="{:urlPrefix}/page/wechat-keywords.html" class="navbar-item">
-                <span><i class="fab fa-weixin"></i> 微信关键字</span>
-            </a>
             <a href="{:urlPrefix}/tools.html" class="navbar-item">
                 <span><i class="fa fa-tools"></i> 工具</span>
+            </a>
+            <a href="{:urlPrefix}/markdown.html" class="navbar-item">
+                <span><i class="fab fa-markdown"></i> Markdown</span>
+            </a>
+            <a href="{:urlPrefix}/page/wechat-keywords.html" class="navbar-item">
+                <span><i class="fab fa-weixin"></i> 微信关键字</span>
             </a>
             <a href="{:urlPrefix}/page/about.html" class="navbar-item">
                 <span><i class="fa fa-info-circle"></i> 关于</span>

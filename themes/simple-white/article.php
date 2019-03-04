@@ -10,7 +10,6 @@
             commentCount = <?=$article->getCommentCount()?>,
             commentCaptchaEnable = <?=link\hefang\mvc\Mvc::getConfig('comment|captcha_enable', false) ? 'true' : 'false'?>
     </script>
-    <script src="/statics/ueditor/ueditor.parse.js"></script>
     <script type="application/ld+json"><?= baiduJsonLD($article) ?></script>
     <script defer src="/admin/comment.js?nocache={func:rand(1,100000000)}"></script>
     <link rel="stylesheet" href="/statics/github-markdown.css">

@@ -2,7 +2,8 @@ const exports = {}, objMap = {
     'hefang-js': 'H',
     'hefang-ui-react': 'HuiReact',
     'react': "React",
-    'react-dom': 'ReactDOM'
+    'react-dom': 'ReactDOM',
+    'ace-builds': 'ace'
 };
 
 function require(name: string) {
