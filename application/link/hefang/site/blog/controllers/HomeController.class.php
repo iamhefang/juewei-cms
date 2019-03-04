@@ -33,10 +33,10 @@ class HomeController extends BaseController
         try {
             $pager = ViewArticleModel::pager(
                 $this->_pageIndex(),
-                $this->_pageSize(),
+                $this->_pageSize(10),
                 null,
                 $where,
-                [new SqlSort('last_alter_time', SqlSort::TYPE_DESC), new SqlSort('read_count')]
+                [new SqlSort('last_alter_time', SqlSort::TYPE_ASC), new SqlSort('read_count')]
             );
 
             $swipers = [];

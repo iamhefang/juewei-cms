@@ -17,6 +17,7 @@ $(function () {
         , $upArticle = $('.up-article')
         , $footer = $('.footer')
         , $images = $('img')
+        , $pagerItem = $('.hui-pager-item')
         , ctx = $scrollCanvas.length > 0 ? ($scrollCanvas[0] as HTMLCanvasElement).getContext("2d") : null;
 
     let sideWidth = $aside.outerWidth()
@@ -31,6 +32,15 @@ $(function () {
     $images.on('load', function () {
         docHeight = $doc.outerHeight();
         mainHeight = $main.outerHeight();
+    });
+
+    $pagerItem.each(function () {
+        const $me = $(this)
+            , href = $me.attr('href');
+        if (location.href.indexOf(href) !== -1) {
+            $me.css({background: 'gray', color: 'white'})
+                .attr('href', 'javascript:;')
+        }
     });
 
     $scroll.on("click", function () {
@@ -71,8 +81,6 @@ $(function () {
         }
     });
 
-    // $aside.css('left', $main.outerWidth());
-
     $panels.filter(function () {
         return $(this).attr('data-open') === 'false';
     }).find('.panel-content').hide();
@@ -103,14 +111,14 @@ $(function () {
         } else {
             $scroll.fadeOut()
         }
-        $scrollSpan.text(parcent.toFixed(0));
+        $scrollSpan.text((parcent > 100 ? 100 : parcent).toFixed(0));
         if (ctx) {
             ctx.fillStyle = "white";
             ctx.fillRect(0, 0, 256, 256);
             ctx.lineWidth = 40;
             ctx.strokeStyle = "#00a2dd";
             ctx.beginPath();
-            ctx.arc(128, 128, 128, 0, Math.PI * 2 / 100 * parcent);
+            ctx.arc(128, 128, 128, 0, Math.PI * 2 / 100 * (parcent > 100 ? 100 : parcent));
             ctx.stroke();
             ctx.closePath();
         }

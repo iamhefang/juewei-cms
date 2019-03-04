@@ -13,8 +13,9 @@ $end > $pages and $end = $pages;
     <div class="hui-pager">
         <a href="?pageIndex=1&pageSize=<?= $pageSize ?>" class="hui-pager-item">首页</a>
         <?php for ($page = $start; $page <= $end; $page++) { ?>
-            <a href="?pageIndex=<?= $page ?>&pageSize=<?= $pageSize ?>" class="hui-pager-item"><?= $page ?></a>
+            <a href="?pageIndex=<?= $page ?>" class="hui-pager-item"><?= $page ?></a>
         <?php } ?>
-        <a href="?pageIndex=<?= $pages ?>&pageSize=<?= $pageSize ?>" class="hui-pager-item">尾页</a>
+        <a href="?pageIndex=<?= $pages ?>" class="hui-pager-item">尾页</a>
     </div>
 </div>
+

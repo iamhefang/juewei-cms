@@ -68,7 +68,8 @@ class ArticleController extends BaseController
         $title = $this->_post("title");
         $keywords = $this->_post("keywords");
         $description = $this->_post("description");
-        $content = $this->_post("content");
+        $html = $this->_post("html");
+        $markdown = $this->_post("markdown");
         $catalog = $this->_post("catalog");
         $password = $this->_post("password");
         $cateId = $this->_post("cateId");
@@ -88,7 +89,8 @@ class ArticleController extends BaseController
                 ->setTitle($title)
                 ->setKeywords($keywords)
                 ->setDescription($description)
-                ->setHtml($content)
+                ->setHtml($html)
+                ->setMarkdown($markdown)
                 ->setCatalog($catalog)
                 ->setPassword($password)
                 ->setCateId($cateId)

@@ -11,13 +11,6 @@
             commentCaptchaEnable = <?=link\hefang\mvc\Mvc::getConfig('comment|captcha_enable', false) ? 'true' : 'false'?>
     </script>
     <script src="/statics/ueditor/ueditor.parse.js"></script>
-    <!--    <link id="syntaxhighlighter_css" rel="stylesheet" type="text/css"-->
-    <!--          href="/statics/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css">-->
-
-
-    <!--    <script id="syntaxhighlighter_js" src="/statics/ueditor/third-party/SyntaxHighlighter/shCore.js"-->
-    <!--            type="text/javascript"-->
-    <!--            defer="defer"></script>-->
     <script type="application/ld+json"><?= baiduJsonLD($article) ?></script>
     <script defer src="/admin/comment.js?nocache={func:rand(1,100000000)}"></script>
     <link rel="stylesheet" href="/statics/github-markdown.css">
@@ -58,10 +51,8 @@
                 <input type="text" class="hui-input display-block text-center" readonly
                        value="<?= $article->getReprintFrom() ?>"/>
             <?php } else { ?>
-                <!--                <label for="articleUrl" class="display-block form-group">该文章原创, 转载请注明出处</label>-->
-                <!--                <input type="text" class="hui-input display-block text-center" id="articleUrl"/>-->
-
-                <div>版权声明：<a href="https://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
+                <div>
+                    版权声明：<a href="https://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">自由转载-非商用-非衍生-保持署名</a>
                 </div>
                 <div>发表时间：{func:articleDate($article)}</div>
                 <div>相关标签：<?= join(", ", array_map(function ($tag) {
