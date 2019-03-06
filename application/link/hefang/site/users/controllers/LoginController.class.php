@@ -8,6 +8,7 @@ use link\hefang\helpers\StringHelper;
 use link\hefang\mvc\controllers\BaseController;
 use link\hefang\mvc\Mvc;
 use link\hefang\mvc\views\BaseView;
+use link\hefang\otp\TOTP;
 use link\hefang\site\admin\models\FunctionModel;
 use link\hefang\site\users\models\LoginModel;
 
@@ -42,6 +43,7 @@ class LoginController extends BaseController
             return $this->_apiFailed("密码参数异常");
         }
         $hash = HashHelper::passwordHash($pwd, Mvc::getPasswordSalt());
+        $totpEnable = Mvc::getConfig('login|2fa_enable', false);
         try {
             $login = LoginModel::find("(`login_name` = '$name' OR `phone` = '$name' OR `email` = '$name') AND `password` = '$hash'");
             if (!$login->isExist() || !($login instanceof LoginModel)) {
@@ -50,7 +52,15 @@ class LoginController extends BaseController
             if (!$login->isEnable()) {
                 return $this->_apiFailed("无法使用提供的用户名密码登录(1)");
             }
+
             $login->login($this);
+            if ($totpEnable) {
+                Mvc::getLogger()->debug("login", $login->getTotpToken());
+                $login->setIsPassedTotp(StringHelper::isNullOrBlank($login->getTotpToken()))
+                    ->setIsLockedScreen(!$login->isPassedTotp());
+            } else {
+                $login->setIsPassedTotp(true)->setIsLockedScreen(false);
+            }
             return $this->_apiSuccess($login);
         } catch (\Throwable $e) {
             Mvc::getLogger()->error("登录异常", $e->getMessage(), $e);
@@ -149,6 +159,7 @@ class LoginController extends BaseController
     public function screen(string $type = null): BaseView
     {
         $login = $this->_checkLogin(null, false, false, [], false);
+
         $type = strtoupper($type ?: '');
 
         if ($type === 'LOCK') {
@@ -165,18 +176,30 @@ class LoginController extends BaseController
                 return $this->_apiFailed('参数异常');
             }
             $hash = HashHelper::passwordHash($pwd, Mvc::getPasswordSalt());
-            if ($hash !== $login->getPassword()) {
-                $count = $login->unlockTryCount--;
-                if ($count === 0) {
-                    $login->logout($this);
-                    return $this->_needLogin('您重试次数过多, 请重新登录');
+            $totpEnable = Mvc::getConfig("login|totp_enable", false);
+
+            if ($totpEnable && !StringHelper::isNullOrBlank($login->getTotpToken())) {
+                $token = (new TOTP($login->getTotpToken()))->now();
+                if ($hash === HashHelper::passwordHash(sha1($token) . md5($token), Mvc::getPasswordSalt())) {
+                    $login->unlockTryCount = LoginModel::UNLOCK_MAX_TRY;
+                    $login->setIsLockedScreen(false)->updateSession($this);
+                    return $this->_apiSuccess();
                 }
-                return $this->_apiFailed('密码错误, 您还可以重试' . $count . '次');
             }
 
-            $login->unlockTryCount = LoginModel::UNLOCK_MAX_TRY;
-            $login->setIsLockedScreen(false)->updateSession($this);
-            return $this->_apiSuccess();
+
+            if ($hash === $login->getPassword()) {
+                $login->unlockTryCount = LoginModel::UNLOCK_MAX_TRY;
+                $login->setIsLockedScreen(false)->updateSession($this);
+                return $this->_apiSuccess();
+
+            }
+            $count = $login->unlockTryCount--;
+            if ($count === 0) {
+                $login->logout($this);
+                return $this->_needLogin('您重试次数过多, 请重新登录');
+            }
+            return $this->_apiFailed('密码或令牌错误, 您还可以重试' . $count . '次');
         }
 
         return $this->_404();

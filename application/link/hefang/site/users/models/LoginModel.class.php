@@ -3,7 +3,9 @@
 namespace link\hefang\site\users\models;
 defined('PROJECT_NAME') or die("Access Refused");
 
+use link\hefang\helpers\StringHelper;
 use link\hefang\mvc\models\BaseLoginModel;
+use function PHPSTORM_META\map;
 
 class LoginModel extends BaseLoginModel
 {
@@ -25,6 +27,9 @@ class LoginModel extends BaseLoginModel
     private $password = '';
     private $enable = true;
     private $headImgUrl = null;
+    private $totpToken = null;
+
+    private $isPassedTotp = false;
 
     /**
      * @return string
@@ -278,6 +283,25 @@ class LoginModel extends BaseLoginModel
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getTotpToken()
+    {
+        return $this->totpToken;
+    }
+
+    /**
+     * @param string $totpToken
+     * @return LoginModel
+     */
+    public function setTotpToken($totpToken): LoginModel
+    {
+        $this->totpToken = $totpToken;
+        return $this;
+    }
+
+
     public static function primaryKeyFields(): array
     {
         return ['id'];
@@ -304,8 +328,27 @@ class LoginModel extends BaseLoginModel
             'last_login_ip' => 'lastLoginIp',
             'password' => 'password',
             'enable' => 'enable',
-            'head_img_url' => 'headImgUrl'
+            'head_img_url' => 'headImgUrl',
+            'totp_token' => 'totpToken'
         ];
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPassedTotp(): bool
+    {
+        return $this->isPassedTotp;
+    }
+
+    /**
+     * @param bool $isPassedTotp
+     * @return LoginModel
+     */
+    public function setIsPassedTotp(bool $isPassedTotp): LoginModel
+    {
+        $this->isPassedTotp = $isPassedTotp;
+        return $this;
     }
 
     public function isAdmin(): bool
@@ -316,6 +359,14 @@ class LoginModel extends BaseLoginModel
     public function isSuperAdmin(): bool
     {
         return $this->getId() === self::ID_ROOT;
+    }
+
+    public function toMap(): array
+    {
+        $map = parent::toMap();
+        $map['totpToken'] = !StringHelper::isNullOrBlank($map['totpToken']);
+        $map['isPassedTotp'] = $this->isPassedTotp();
+        return $map;
     }
 
     /**

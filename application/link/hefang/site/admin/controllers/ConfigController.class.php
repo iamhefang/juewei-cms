@@ -55,4 +55,11 @@ class ConfigController extends BaseController
             return $this->_apiFailed($e->getMessage());
         }
     }
+
+    public function get(string $id = null): BaseView
+    {
+        $this->_checkAdmin();
+        $id = $this->_request("id", $id);
+        return $this->_apiSuccess(Mvc::getConfig($id));
+    }
 }

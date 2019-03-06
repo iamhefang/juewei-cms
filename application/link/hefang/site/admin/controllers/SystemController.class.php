@@ -12,7 +12,8 @@ class SystemController extends BaseController
 {
     public function polling(): BaseView
     {
-        $this->_needLogin();
+        $login = $this->_checkLogin();
+        $login->updateSession($this);
         return $this->_apiSuccess(new PollingEntity());
     }
 }
