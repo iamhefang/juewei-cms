@@ -251,6 +251,17 @@ class HomeController extends BaseController
         ]), '404');
     }
 
+    public function _500(): BaseView
+    {
+        return $this->_template($this->makeData([
+            'title' => '500 出现错误'
+        ]), 'error');
+    }
+
+    public function robots(): BaseView
+    {
+        return $this->_text(Mvc::getConfig('site|robots', ''));
+    }
 
     public function _exception(\Throwable $e = null, string $message = null, string $title = null): BaseView
     {

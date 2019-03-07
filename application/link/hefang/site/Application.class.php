@@ -6,7 +6,10 @@ defined('PROJECT_NAME') or die("Access Refused");
 use link\hefang\helpers\CollectionHelper;
 use link\hefang\helpers\StringHelper;
 use link\hefang\mvc\entities\Router;
+use link\hefang\mvc\exceptions\ActionNotFoundException;
+use link\hefang\mvc\exceptions\ControllerNotFoundException;
 use link\hefang\mvc\SimpleApplication;
+use link\hefang\mvc\views\RedirectView;
 use link\hefang\site\admin\models\ConfigModel;
 
 
@@ -29,7 +32,7 @@ class Application extends SimpleApplication
     public function onRequest(string $path)
     {
         $router = null;
-        $paths = explode('/', $path);
+        $paths = explode('/', rtrim($path, '/'));
         if (count($paths) < 3) {
 
         } elseif (StringHelper::startsWith($path, true, self::PREFIX_FILES)) {
@@ -81,5 +84,14 @@ class Application extends SimpleApplication
         }
 
         return $router;
+    }
+
+    public function onException(\Throwable $e)
+    {
+        if (($e instanceof ActionNotFoundException) || ($e instanceof ControllerNotFoundException)) {
+            return new RedirectView("/404.html");
+        } else {
+            return new RedirectView("/500.html");
+        }
     }
 }

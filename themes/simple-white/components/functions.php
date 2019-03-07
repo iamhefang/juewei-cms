@@ -33,12 +33,12 @@ function baiduJsonLD(\link\hefang\site\content\models\ViewArticleModel $article)
     return str_replace('\/', '/', $json);
 }
 
-function topArticle(string $type): array
+function topArticle(string $type, int $pageSize = 5): array
 {
     try {
         $pager = \link\hefang\site\content\models\ArticleModel::pager(
             1,
-            5,
+            $pageSize,
             null,
             "`is_draft` = false AND `enable` = true AND `type` = 'article'",
             [new \link\hefang\mvc\databases\SqlSort($type === 'new' ? "post_time" : "read_count", \link\hefang\mvc\databases\SqlSort::TYPE_DESC)]
