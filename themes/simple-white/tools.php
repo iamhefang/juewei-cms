@@ -4,6 +4,8 @@
 <html lang="zh">
 <head>
     {inc:components/head.php}
+    <script src="//api.jueweikeji.com.cn/statics/react-router/4.3.1/react-router.min.js"></script>
+    <script src="//api.jueweikeji.com.cn/statics/react-router-dom/4.3.1/react-router-dom.min.js"></script>
 </head>
 <body>
 {inc:components/nav.php}

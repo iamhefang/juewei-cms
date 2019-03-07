@@ -27,7 +27,8 @@ $(function () {
         , docHeight = $doc.outerHeight()
         , footerHeight = $footer.outerHeight()
         , mainHeight = $main.outerHeight()
-        , isFixedSide = false;
+        , isFixedSide = false
+        , resizeTimer = null;
 
     $images.on('load', function () {
         docHeight = $doc.outerHeight();
@@ -161,7 +162,11 @@ $(function () {
         navHeight = $navbar.outerHeight();
         footerHeight = $footer.outerHeight();
         docHeight = $doc.outerHeight();
-        sideHeight = $aside.outerHeight()
+        sideHeight = $aside.outerHeight();
+        resizeTimer && clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+            $doc.trigger('scroll')
+        }, 300)
     });
 
     function toggleOpen($dom: JQuery, open: boolean = null) {
