@@ -344,3 +344,14 @@ a {
   display: none;
   padding-bottom: .5rem;
 }
+
+.markdown-body {
+  .linenums {
+    li {
+      list-style-type: decimal !important;
+    }
+  }
+  ol, ul {
+    margin-bottom: 0 !important;
+  }
+}

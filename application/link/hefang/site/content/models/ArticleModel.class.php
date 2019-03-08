@@ -241,9 +241,9 @@ SQL
     }
 
     /**
-     * @return float
+     * @return string
      */
-    public function getPostTime(): float
+    public function getPostTime(): string
     {
         return $this->postTime;
     }
@@ -259,9 +259,9 @@ SQL
     }
 
     /**
-     * @return float
+     * @return string
      */
-    public function getLastAlterTime(): float
+    public function getLastAlterTime(): string
     {
         return $this->lastAlterTime;
     }

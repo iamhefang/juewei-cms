@@ -21,6 +21,7 @@ class Application extends SimpleApplication
     const PREFIX_ARTICLE = '/article/';
     const PREFIX_TAG = '/tag/';
     const PREFIX_API = '/api/';
+    const PREFIX_RSS = '/rss';
     const PATTERN_DATE = '/^\/\d{4}(\/\d{1,2}(\/\d{1,2}(\/\d{1,2})?)?)?\/?$/i';
 
     public function onInit()
@@ -33,7 +34,15 @@ class Application extends SimpleApplication
     {
         $router = null;
         $paths = explode('/', rtrim($path, '/'));
-        if (count($paths) < 3) {
+        if (StringHelper::startsWith($path, true, self::PREFIX_RSS)) {
+            if (count($paths) < 3) {
+
+            } elseif ($paths[2] !== 'tag') {
+                $router = new Router("blog", "rss", 'index', $paths[1], 'xml');
+            } else {
+                $router = new Router('blog', 'rss', 'tag', $paths[3], 'xml');
+            }
+        } elseif (count($paths) < 3) {
 
         } elseif (StringHelper::startsWith($path, true, self::PREFIX_FILES)) {
             $router = new Router(

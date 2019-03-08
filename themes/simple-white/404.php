@@ -20,6 +20,11 @@
             </ol>
         </div>
         <div class="block markdown-body">
+            <h3>使用RSS订阅我的博客</h3>
+            <div>
+                <p>本站支持RSS订阅，及时获取最新文章。</p>
+                <p>订阅教程：<a href="/page/rss.html">使用RSS订阅何方博客</a></p>
+            </div>
             <h3>大家对这些内容比较感兴趣</h3>
             <ol>
                 <?php $topArticles = topArticle('hot', 10); ?>

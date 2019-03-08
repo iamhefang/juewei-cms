@@ -5,6 +5,9 @@
 <head>
     {inc:components/head.php}
     <script type="application/ld+json"><?= baiduJsonLD($article) ?></script>
+    <link rel="stylesheet" href="//api.jueweikeji.com.cn/statics/code-prettify/0.1.0/prettify.css">
+    <link rel="stylesheet" href="//api.jueweikeji.com.cn/statics/github-markdown-css/3.0.1/github-markdown.css">
+    <script crossorigin="anonymous" src="//api.jueweikeji.com.cn/statics/code-prettify/0.1.0/prettify.js"></script>
 </head>
 <body>
 {inc:components/nav.php}
@@ -13,8 +16,13 @@
         <article class="block">
             <h1>{article.getTitle()}</h1>
             <hr>
-            {article.getHtml()}
+            <div class="markdown-body">
+                {article.getHtml()}
+            </div>
         </article>
+        <script>
+            prettyPrint();
+        </script>
     </main>
     {inc:components/aside.php}
 </div>

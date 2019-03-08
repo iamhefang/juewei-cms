@@ -9,8 +9,8 @@
             <a href="{:urlPrefix}/tools.html" class="navbar-item">
                 <span><i class="fa fa-tools"></i> 工具</span>
             </a>
-            <a href="{:urlPrefix}/markdown.html" class="navbar-item">
-                <span><i class="fab fa-markdown"></i> Markdown</span>
+            <a href="{:urlPrefix}/page/rss.html" class="navbar-item">
+                <span><i class="fa fa-rss"></i> RSS</span>
             </a>
             <a href="{:urlPrefix}/page/wechat-keywords.html" class="navbar-item">
                 <span><i class="fab fa-weixin"></i> 微信关键字</span>

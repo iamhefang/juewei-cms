@@ -254,7 +254,8 @@ class HomeController extends BaseController
     public function _500(): BaseView
     {
         return $this->_template($this->makeData([
-            'title' => '500 出现错误'
+            'title' => '500 出现错误',
+            'message' => '出现错误'
         ]), 'error');
     }
 
