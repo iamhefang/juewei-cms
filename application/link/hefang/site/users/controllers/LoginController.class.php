@@ -4,8 +4,11 @@ namespace link\hefang\site\users\controllers;
 defined('PROJECT_NAME') or die("Access Refused");
 
 use link\hefang\helpers\HashHelper;
+use link\hefang\helpers\ParseHelper;
 use link\hefang\helpers\StringHelper;
 use link\hefang\mvc\controllers\BaseController;
+use link\hefang\mvc\exceptions\ModelException;
+use link\hefang\mvc\exceptions\SqlException;
 use link\hefang\mvc\Mvc;
 use link\hefang\mvc\views\BaseView;
 use link\hefang\otp\TOTP;
@@ -17,8 +20,34 @@ class LoginController extends BaseController
 {
     public function info(): BaseView
     {
-        $login = $this->_checkLogin();
-        return $this->_apiSuccess($login);
+        $login = $this->_getLogin();
+        if ($login instanceof LoginModel) return $this->_apiSuccess($login);
+        $token = $this->_cookie('token');
+        if (StringHelper::isNullOrBlank($token)) {
+            return $this->_apiSuccess($this->_checkLogin());
+        }
+        $cacheId = HashHelper::desDecrypt($token, Mvc::getProperty('cookie.salt', php_uname()));
+        if (StringHelper::isNullOrBlank($cacheId)) {
+            return $this->_apiSuccess($this->_checkLogin());
+        }
+
+        $info = Mvc::getCache()->get($cacheId);
+        if (!is_array($info) || !isset($info['loginId'])) {
+            return $this->_apiSuccess($this->_checkLogin());
+        }
+        try {
+            $login = LoginModel::get($info['loginId']);
+            if (!($login instanceof LoginModel) || !$login->isExist() || !$login->isEnable()) {
+                return $this->_apiSuccess($this->_checkLogin());
+            }
+            $login->login($this)
+                ->setIsPassedTotp(true)
+                ->setIsLockedScreen(true)
+                ->updateSession($this);
+            return $this->_apiSuccess($login);
+        } catch (\Throwable $e) {
+            return $this->_apiSuccess($this->_checkLogin());
+        }
     }
 
     public function login(): BaseView
@@ -26,6 +55,7 @@ class LoginController extends BaseController
         $name = $this->_post("name");
         $pwd = $this->_post("pwd");
         $captcha = $this->_post('captcha');
+        $autoLogin = ParseHelper::parseBoolean($this->_post('autoLogin'), false);
         $captchaEnable = Mvc::getConfig("captcha|login_enable", false);
         if ($captchaEnable) {
             $captchaLength = Mvc::getConfig('captcha|login_length', 6);
@@ -54,6 +84,7 @@ class LoginController extends BaseController
             }
 
             $login->login($this);
+            $login->setAutoLoginNextTime($autoLogin);
             if ($totpEnable) {
                 Mvc::getLogger()->debug("login", $login->getTotpToken());
                 $login->setIsPassedTotp(StringHelper::isNullOrBlank($login->getTotpToken()))

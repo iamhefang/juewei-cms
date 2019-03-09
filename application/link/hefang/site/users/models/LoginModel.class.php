@@ -31,6 +31,8 @@ class LoginModel extends BaseLoginModel
 
     private $isPassedTotp = false;
 
+    private $autoLoginNextTime = false;
+
     /**
      * @return string
      */
@@ -359,6 +361,24 @@ class LoginModel extends BaseLoginModel
     public function isSuperAdmin(): bool
     {
         return $this->getId() === self::ID_ROOT;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAutoLoginNextTime(): bool
+    {
+        return $this->autoLoginNextTime;
+    }
+
+    /**
+     * @param bool $autoLoginNextTime
+     * @return LoginModel
+     */
+    public function setAutoLoginNextTime(bool $autoLoginNextTime): LoginModel
+    {
+        $this->autoLoginNextTime = $autoLoginNextTime;
+        return $this;
     }
 
     public function toMap(): array

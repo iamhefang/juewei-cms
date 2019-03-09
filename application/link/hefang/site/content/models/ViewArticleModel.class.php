@@ -264,6 +264,11 @@ class ViewArticleModel extends BaseModel
         ];
     }
 
+    public static function bigDataFields(): array
+    {
+        return ['markdown', 'html'];
+    }
+
     public static function fields(): array
     {
         return [

@@ -1,5 +1,5 @@
 <?php defined('PROJECT_NAME') or die("Access Refused"); ?>
-{incOnce:components/functions.php}
+{incOnce:functions.php}
 <aside class="aside-container">
     <div class="aside" id="aside">
         <div class="panel" data-open="true">

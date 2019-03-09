@@ -37,6 +37,10 @@
             </form>
             {else}
             <div class="markdown-body">
+                <blockquote>
+                    {article.getDescription()}
+                </blockquote>
+                <p></p>
                 {article.getHtml()}
             </div>
             <script>
@@ -59,6 +63,18 @@
                     }, $article->getTags())) ?></div>
             <?php } ?>
         </div>
+        <div class="block appreciate text-center">
+            <p>
+                都到这儿了。点个赞，赞个赏呗！
+            </p>
+            <a class="hui-btn up-article" data-id="{article.getId()}">
+                <i class="fa fa-thumbs-up"></i> 点赞
+            </a>
+            <a class="hui-btn" href="#appreciate">
+                <i class="fa fa-hand-holding-usd"></i>
+                赞赏
+            </a>
+        </div>
         <div id="commentContainer">评论组件加载中......</div>
     </main>
     {inc:components/aside.php}
@@ -66,5 +82,7 @@
 {inc:components/footer.php}
 
 {inc:components/scroll.php}
+
+{inc:components/appreciate.php}
 </body>
 </html>

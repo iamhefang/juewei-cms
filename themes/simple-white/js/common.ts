@@ -20,3 +20,30 @@ function require(name: string) {
     }
     throw new Error(`库${name}未定义`);
 }
+
+function openIntent(url: string) {
+    // const frame = document.createElement('iframe') as HTMLIFrameElement;
+    // frame.src = url;
+    // frame.style.display = 'none';
+    // document.body.appendChild(frame);
+    // setTimeout(function () {
+    //     frame.remove()
+    // }, 1000);
+
+    const link = document.createElement('a') as HTMLAnchorElement;
+    link.href = url;
+    document.body.appendChild(link);
+    link.click();
+    setTimeout(function () {
+        link.remove()
+    }, 1000);
+}
+
+function loadJs(url: string, noCache: boolean = false) {
+    const script = document.createElement('script') as HTMLScriptElement;
+    script.src = url + (noCache ? `?noCache=${(new Date).getTime()}` : '');
+    document.head.appendChild(script);
+}
+
+loadJs('/themes/simple-white/js/index.js');
+

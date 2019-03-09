@@ -3,6 +3,8 @@
 namespace link\hefang\site\users\controllers;
 
 
+use link\hefang\helpers\HashHelper;
+use link\hefang\helpers\RandomHelper;
 use link\hefang\helpers\StringHelper;
 use link\hefang\mvc\controllers\BaseController;
 use link\hefang\mvc\Mvc;
@@ -44,6 +46,19 @@ class TokenController extends BaseController
         $login->setIsPassedTotp(true)
             ->setIsLockedScreen(false)
             ->updateSession($this);
+        if ($login->isAutoLoginNextTime()) {
+            $cacheId = RandomHelper::guid();
+            $cache = Mvc::getCache();
+            $expire = time() + 10 * 24 * 60 * 60;
+            $cache->set($cacheId, [
+                'loginId' => $login->getId(),
+                'loginTime' => time(),
+                'userAgent' => $this->_userAgent()
+            ], $expire);//10天
+            $cookie = HashHelper::desEncrypt($cacheId, Mvc::getProperty('cookie.salt', php_uname()));
+            Mvc::getLogger()->debug("cookie", $cookie);
+            setcookie("token", $cookie, $expire, '/', '', false, true);
+        }
         return $this->_apiSuccess();
     }
 

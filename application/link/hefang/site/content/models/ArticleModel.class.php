@@ -533,6 +533,11 @@ SQL
         return ['id'];
     }
 
+    public static function bigDataFields(): array
+    {
+        return ['markdown', 'html'];
+    }
+
     /**
      * 返回模型和数据库对应的字段
      * key 为数据库对应的字段名, value 为模型字段名

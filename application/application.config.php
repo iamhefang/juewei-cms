@@ -14,6 +14,7 @@ return [
     'database.charset' => 'utf8mb4',
     'database.database' => 'blog',
     'password.salt' => '89389283sofisdkfjlkjg832flskdg2',
+    'cookie.salt' => '',
     'default.module' => 'blog',
     'default.controller' => 'home',
     'default.action' => 'index',

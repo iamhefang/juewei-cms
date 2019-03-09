@@ -355,3 +355,71 @@ a {
     margin-bottom: 0 !important;
   }
 }
+
+.appreciate {
+  .hui-btn {
+    $color: #1c87ff;
+    background: none;
+    border: thin solid $color;
+    color: $color;
+    transition: background-color .35s, color .35s;
+    padding: .5rem 2rem;
+    &:hover, &.active {
+      color: white;
+      background-color: $color;
+      text-decoration: none;
+    }
+    & + .hui-btn {
+      margin-left: 2rem;
+    }
+  }
+  &-container {
+
+  }
+  &-img {
+    height: 14rem;
+    width: 14rem;
+    margin: 2rem;
+    border-radius: .2rem;
+    border: thin solid gray;
+    &.alipay {
+      display: none;
+    }
+  }
+  &-box {
+    padding: 1.5rem;
+    display: none;
+    width: 90%;
+    max-width: 35rem;
+    z-index: 4;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 1rem black;
+    background-color: white;
+    overflow: hidden;
+    border-radius: .2rem;
+    button {
+      margin-top: 1rem;
+      background-color: transparent;
+      border: thin solid;
+    }
+    .hui-btn-primary {
+      color: #007bff;
+      border-color: #007bff;
+      &:hover, &.active {
+        background-color: #007bff;
+        color: white;
+      }
+    }
+    .hui-btn-success {
+      color: #28a745;
+      border-color: #28a745;
+      &:hover, &.active {
+        background-color: #28a745;
+        color: white;
+      }
+    }
+  }
+}

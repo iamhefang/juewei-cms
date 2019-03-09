@@ -27,7 +27,7 @@
 <script crossorigin="anonymous" src="//api.jueweikeji.com.cn/statics/hefang-ui-react/1.0.16/index.js"></script>
 <script src="{:themeUrl}/js/hefang-ui-jquery-swiper.js"></script>
 <script defer src="{:themeUrl}/js/common.js"></script>
-<script defer src="{:themeUrl}/js/index.js"></script>
+<!--<script defer src="{:themeUrl}/js/index.js"></script>-->
 <script>
     var _hmt = _hmt || [];
     (function () {
