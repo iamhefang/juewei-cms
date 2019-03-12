@@ -12,6 +12,7 @@ use link\hefang\mvc\databases\SqlSort;
 use link\hefang\mvc\exceptions\SqlException;
 use link\hefang\mvc\Mvc;
 use link\hefang\mvc\views\BaseView;
+use link\hefang\mvc\views\TextView;
 use link\hefang\site\content\models\SwiperModel;
 use link\hefang\site\content\models\ViewArticleModel;
 use link\hefang\site\content\models\ViewTagModel;
@@ -68,6 +69,7 @@ class HomeController extends BaseController
 
     public function tools(): BaseView
     {
+        if (!$this->checkFormat()) return $this->_redirect('/404.html');
         return $this->_template($this->makeData([
             'title' => '工具'
         ]));
@@ -75,6 +77,7 @@ class HomeController extends BaseController
 
     public function markdown(): BaseView
     {
+        if (!$this->checkFormat()) return $this->_redirect('/404.html');
         return $this->_template($this->makeData([
             'title' => '在线Markdown编辑器'
         ]));
@@ -82,6 +85,7 @@ class HomeController extends BaseController
 
     public function tag(string $tag): BaseView
     {
+//        if (!$this->checkFormat()) return $this->_redirect('/404.html');
         $this->log();
         try {
             $tag = addslashes($tag);
@@ -108,6 +112,7 @@ class HomeController extends BaseController
 
     public function search(): BaseView
     {
+        if (!$this->checkFormat()) return $this->_redirect('/404.html');
         $this->log();
         $search = $this->_request("search", '');
         $search = trim($search);
@@ -149,10 +154,11 @@ class HomeController extends BaseController
 
     public function article(string $idOrAlias, string $type = 'article'): BaseView
     {
+        if (!$this->checkFormat()) return $this->_redirect('/404.html');
         $this->log();
         $login = $this->_getLogin();
         if (StringHelper::isNullOrBlank($idOrAlias)) {
-            return $this->_404();
+            return $this->_redirect('/404.html');
         }
         $idOrAlias = addslashes($idOrAlias);
         try {
@@ -208,6 +214,7 @@ class HomeController extends BaseController
 
     public function date(string $params): BaseView
     {
+        if (!$this->checkFormat()) return $this->_redirect('/404.html');
         $this->log();
         $date = json_decode($params, true);
         try {
@@ -261,6 +268,7 @@ class HomeController extends BaseController
 
     public function robots(): BaseView
     {
+        if (!$this->checkFormat('txt')) return $this->_404();
         return $this->_text(Mvc::getConfig('site|robots', ''));
     }
 
@@ -300,6 +308,11 @@ class HomeController extends BaseController
             'highlight' => null,
             'search' => $this->_request("search")
         ], $array ?: []);
+    }
+
+    private function checkFormat(string $format = 'html'): bool
+    {
+        return strcasecmp($this->getRouter()->getFormat(), $format) === 0;
     }
 
     private function log()

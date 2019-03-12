@@ -10,3 +10,5 @@ test/
 node_modules/
 /admin/
 /statics/
+package.json
+*.lock

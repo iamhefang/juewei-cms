@@ -150,7 +150,7 @@ $(function () {
             $doc.trigger('scroll')
         });
     });
-
+    //文档滚动事件
     $doc.on("scroll", function () {
         const docScrollTop = $doc.scrollTop()
             , parcent = docScrollTop / (docHeight - window.innerHeight) * 100
@@ -246,9 +246,5 @@ $(function () {
     function toggleOpen($dom: JQuery, open: boolean = null) {
         const willOpen = open === null ? ($dom.attr("data-open") === 'false') : open;
         $dom.attr('data-open', willOpen + '')
-    }
-
-    function showPaylayer() {
-
     }
 });

@@ -22,14 +22,6 @@ function require(name: string) {
 }
 
 function openIntent(url: string) {
-    // const frame = document.createElement('iframe') as HTMLIFrameElement;
-    // frame.src = url;
-    // frame.style.display = 'none';
-    // document.body.appendChild(frame);
-    // setTimeout(function () {
-    //     frame.remove()
-    // }, 1000);
-
     const link = document.createElement('a') as HTMLAnchorElement;
     link.href = url;
     document.body.appendChild(link);

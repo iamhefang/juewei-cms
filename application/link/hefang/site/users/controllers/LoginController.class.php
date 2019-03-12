@@ -240,6 +240,19 @@ class LoginController extends BaseController
     {
         $login = $this->_getLogin();
         $login and $login->logout($this);
+
+        $token = $this->_cookie('token');
+        setcookie('token', null, -1, '/', '', false, true);
+        if (StringHelper::isNullOrBlank($token)) {
+            $login and $login->logout($this);
+        } else {
+            $cacheId = HashHelper::desDecrypt($token, Mvc::getProperty('cookie.salt', php_uname()));
+            if (StringHelper::isNullOrBlank($cacheId)) {
+                $login and $login->logout($this);
+            } else {
+                Mvc::getCache()->remove($cacheId);
+            }
+        }
         return $this->_apiSuccess();
     }
 }
