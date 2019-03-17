@@ -1,5 +1,6 @@
 <?php defined('PROJECT_NAME') or die("Access Refused"); ?>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport"
       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
@@ -10,6 +11,7 @@
 <meta name="keywords" content="{:keywords}">
 <!--<meta name="theme-color" content="#fefefe">-->
 <meta name="description" content="{:description}">
+<meta baidu-gxt-verify-token="c0a17dac43d072cb520c07d62039225e">
 <!--[if lte IE 9]>
 <link rel="stylesheet" href="{:themeUrl}/css/ie8.css">
 <script src="//api.jueweikeji.com.cn/statics/html5shiv/html5shiv.min.js"></script>

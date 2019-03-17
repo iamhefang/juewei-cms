@@ -312,7 +312,8 @@ class HomeController extends BaseController
 
     private function checkFormat(string $format = 'html'): bool
     {
-        return strcasecmp($this->getRouter()->getFormat(), $format) === 0;
+        return true;
+//        return strcasecmp($this->getRouter()->getFormat(), $format) === 0;
     }
 
     private function log()

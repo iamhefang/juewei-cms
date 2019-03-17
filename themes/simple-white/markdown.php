@@ -11,7 +11,7 @@
     <script crossorigin="anonymous" src="//api.jueweikeji.com.cn/statics/ace/1.4.3/src-min/ace.js"></script>
     <script crossorigin="anonymous" src="//api.jueweikeji.com.cn/statics/marked/0.6.1/marked.min.js"></script>
     <script crossorigin="anonymous" src="//api.jueweikeji.com.cn/statics/katex/0.10.1/katex.min.js"></script>
-    <script src="//api.jueweikeji.com.cn/statics/hefang-ui-mdeditor/1.0.4/index.js"></script>
+    <script src="//api.jueweikeji.com.cn/statics/hefang-ui-mdeditor/1.0.5/index.js"></script>
 </head>
 <body data-theme="white">
 {inc:components/nav.php}

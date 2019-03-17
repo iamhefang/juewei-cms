@@ -7,6 +7,7 @@ use link\hefang\helpers\TimeHelper;
 use link\hefang\mvc\databases\Sql;
 use link\hefang\mvc\exceptions\SqlException;
 use link\hefang\mvc\models\BaseModel;
+use link\hefang\mvc\Mvc;
 
 
 class ArticleModel extends BaseModel
@@ -81,7 +82,12 @@ SQL
             }
         }
 
-        return self::database()->transaction($sqls) > 0;
+        $res = self::database()->transaction($sqls) > 0;
+        if ($res) {
+            Mvc::getCache()->remove($m->getAlias());
+            Mvc::getCache()->remove($m->getId());
+        }
+        return $res;
     }
 
     /**
