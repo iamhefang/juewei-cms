@@ -3,6 +3,9 @@
 <!doctype html>
 <html lang="zh">
 <head>
+    {each:beforeHead as item}
+    {:item}
+    {endeach}
     {inc:components/head.php}
     <script>
         var contentId = '{article.getId()}',
@@ -11,12 +14,19 @@
             commentCaptchaEnable = <?=link\hefang\mvc\Mvc::getConfig('comment|captcha_enable', false) ? 'true' : 'false'?>
     </script>
     <script type="application/ld+json"><?= baiduJsonLD($article) ?></script>
-    <script defer src="/admin/comment.js?nocache={func:rand(1,100000000)}"></script>
+    <script defer src="/admin/comment.js"></script>
     <link rel="stylesheet" href="//api.jueweikeji.com.cn/statics/code-prettify/0.1.0/prettify.css">
     <link rel="stylesheet" href="//api.jueweikeji.com.cn/statics/github-markdown-css/3.0.1/github-markdown.css">
     <script crossorigin="anonymous" src="//api.jueweikeji.com.cn/statics/code-prettify/0.1.0/prettify.js"></script>
+    {each:afterHead as item}
+    {:item}
+    {endeach}
 </head>
 <body>
+{each:beforeBody as item}
+{:item}
+{endeach}
+
 {inc:components/nav.php}
 <div class="container display-flex-row">
     <main class="main flex-1" id="main">
@@ -32,6 +42,7 @@
                 </label>
                 <input type="password"
                        name="password"
+                       id="password"
                        class="hui-input display-block text-center"
                        placeholder="请输入文章密码">
             </form>
@@ -50,12 +61,12 @@
         </article>
         <div class="block">
             <?php if (strlen($article->getReprintFrom()) > 10) { ?>
-                <p>该文章转载自</p>
-                <input type="text" class="hui-input display-block text-center" readonly
+                <label for="reprintFromUrl" class="display-block">该文章转载自</label>
+                <input id="reprintFromUrl" type="text" class="hui-input display-block text-center" readonly
                        value="<?= $article->getReprintFrom() ?>"/>
             <?php } else { ?>
                 <div>
-                    版权声明：<a href="https://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">自由转载-非商用-非衍生-保持署名</a>
+                    版权声明：<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">自由转载-非商用-非衍生-保持署名</a>
                 </div>
                 <div>发表时间：{func:articleDate($article)}</div>
                 <div>相关标签：<?= join(", ", array_map(function ($tag) {
@@ -84,5 +95,9 @@
 {inc:components/scroll.php}
 
 {inc:components/appreciate.php}
+
+{each:afterBody as item}
+{:item}
+{endeach}
 </body>
 </html>

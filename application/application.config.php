@@ -22,6 +22,6 @@ return [
     'default.charset' => 'utf-8',
     'default.theme' => 'simple-white',
     'default.locale' => 'zh_CN',
-    'prefix.url.main' => '',
+    'prefix.url.main' => '/index.php',
     'prefix.url.file' => '/files'
 ];

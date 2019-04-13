@@ -12,3 +12,5 @@ node_modules/
 /statics/
 package.json
 *.lock
+/files
+/plugins

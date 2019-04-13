@@ -3,6 +3,7 @@
 namespace link\hefang\site\content\controllers;
 defined('PROJECT_NAME') or die("Access Refused");
 
+use link\hefang\cms\plugins\IPlugin;
 use link\hefang\helpers\ParseHelper;
 use link\hefang\helpers\RandomHelper;
 use link\hefang\helpers\StringHelper;
@@ -10,6 +11,7 @@ use link\hefang\helpers\TimeHelper;
 use link\hefang\mvc\controllers\BaseController;
 use link\hefang\mvc\Mvc;
 use link\hefang\mvc\views\BaseView;
+use link\hefang\site\Application;
 use link\hefang\site\content\models\ArticleModel;
 use link\hefang\site\content\models\ViewArticleModel;
 use link\hefang\site\users\models\LoginModel;
@@ -52,6 +54,12 @@ class ArticleController extends BaseController
                 ->setType($type)
                 ->setCovers(is_array($covers) ? $covers : [])
                 ->setAuthorId($login->getId());
+            foreach (Application::plugins() as $plugin) {
+                if (!($plugin instanceof IPlugin)) continue;
+                if (!$plugin->onInsertArticle($m, $this)) {
+                    return $this->_apiFailed("插件阻止了添加文章");
+                }
+            }
             $res = ArticleModel::add($m, $tags);
             return $res ? $this->_apiSuccess() : $this->_apiFailed('添加文章失败');
         } catch (\Throwable $e) {
@@ -81,11 +89,12 @@ class ArticleController extends BaseController
             if (StringHelper::isNullOrBlank($id) || strlen($id) !== 40) {
                 return $this->_apiFailed('参数异常');
             }
-            $m = ArticleModel::get($id);
-            if (!($m instanceof ArticleModel) || !$m->isEnable()) {
+            $old = ArticleModel::get($id);
+            if (!($old instanceof ArticleModel) || !$old->isEnable()) {
                 return $this->_apiFailed('该文章不存在或已被删除');
             }
-            $m->setAlias($alias)
+            $new = $old;
+            $new->setAlias($alias)
                 ->setTitle($title)
                 ->setKeywords($keywords)
                 ->setDescription($description)
@@ -96,7 +105,13 @@ class ArticleController extends BaseController
                 ->setCateId($cateId)
                 ->setIsDraft($isDraft)
                 ->setCovers(is_array($covers) ? $covers : []);
-            $res = ArticleModel::alter($m, is_array($tags) ? $tags : []);
+            foreach (Application::plugins() as $plugin) {
+                if (!($plugin instanceof IPlugin)) continue;
+                if (!$plugin->onUpdateArticle($new, $old, $this)) {
+                    return $this->_apiFailed("插件阻止了添加文章");
+                }
+            }
+            $res = ArticleModel::alter($old, is_array($tags) ? $tags : []);
             return $res ? $this->_apiSuccess() : $this->_apiFailed('更新文章异常');
         } catch (\Throwable $e) {
             Mvc::getLogger()->error("更新文章异常", $e->getMessage(), $e);

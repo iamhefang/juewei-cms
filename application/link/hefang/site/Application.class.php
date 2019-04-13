@@ -3,11 +3,13 @@
 namespace link\hefang\site;
 defined('PROJECT_NAME') or die("Access Refused");
 
+use link\hefang\cms\plugins\IPlugin;
 use link\hefang\helpers\CollectionHelper;
 use link\hefang\helpers\StringHelper;
 use link\hefang\mvc\entities\Router;
 use link\hefang\mvc\exceptions\ActionNotFoundException;
 use link\hefang\mvc\exceptions\ControllerNotFoundException;
+use link\hefang\mvc\Mvc;
 use link\hefang\mvc\SimpleApplication;
 use link\hefang\mvc\views\RedirectView;
 use link\hefang\site\admin\models\ConfigModel;
@@ -24,6 +26,13 @@ class Application extends SimpleApplication
     const PREFIX_RSS = '/rss';
     const PATTERN_DATE = '/^\/\d{4}(\/\d{1,2}(\/\d{1,2}(\/\d{1,2})?)?)?\/?$/i';
 
+    public static function plugins(): array
+    {
+        return [
+
+        ];
+    }
+
     public function onInit()
     {
         $config = ConfigModel::all();
@@ -32,7 +41,13 @@ class Application extends SimpleApplication
 
     public function onRequest(string $path)
     {
+        Mvc::getLogger()->debug($path);
         $router = null;
+        foreach (self::plugins() as $plugin) {
+            if (!($plugin instanceof IPlugin)) continue;
+            $router = $plugin->onRequest($path);
+            if ($router) return $router;
+        }
         $paths = explode('/', rtrim($path, '/'));
         if (StringHelper::startsWith($path, true, self::PREFIX_RSS)) {
             if (count($paths) < 3) {
@@ -91,12 +106,15 @@ class Application extends SimpleApplication
         } else {
             $router = new Router('blog', 'home', '_404');
         }
-
         return $router;
     }
 
     public function onException(\Throwable $e)
     {
+        foreach (self::plugins() as $plugin) {
+            if (!($plugin instanceof IPlugin)) continue;
+            $plugin->onException($e);
+        }
         if (($e instanceof ActionNotFoundException) || ($e instanceof ControllerNotFoundException)) {
             return new RedirectView("/404.html");
         } else {

@@ -3,16 +3,16 @@
 namespace link\hefang\site\blog\controllers;
 defined('PROJECT_NAME') or die("Access Refused");
 
+use link\hefang\cms\plugins\IPlugin;
 use link\hefang\helpers\RandomHelper;
 use link\hefang\helpers\StringHelper;
 use link\hefang\helpers\TimeHelper;
 use link\hefang\mvc\controllers\BaseController;
-use link\hefang\mvc\databases\Sql;
 use link\hefang\mvc\databases\SqlSort;
 use link\hefang\mvc\exceptions\SqlException;
 use link\hefang\mvc\Mvc;
 use link\hefang\mvc\views\BaseView;
-use link\hefang\mvc\views\TextView;
+use link\hefang\site\Application;
 use link\hefang\site\content\models\SwiperModel;
 use link\hefang\site\content\models\ViewArticleModel;
 use link\hefang\site\content\models\ViewTagModel;
@@ -23,8 +23,17 @@ include PATH_APPLICATION . DS . 'link' . DS . 'hefang' . DS . 'site' . DS . 'vie
 
 class HomeController extends BaseController
 {
+    private function checkIp()
+    {
+//        if (StringHelper::contains($this->_userAgent(), true, "python", "curl", "wget", "java")
+//            || StringHelper::startsWith($this->_ip(), true, "154.8.131.")) {
+//            $this->_text("检测到非法访问本站\n")->compile()->render();
+//        }
+    }
+
     public function index(): BaseView
     {
+        $this->checkIp();
         $this->log();
         $login = $this->_getLogin();
         $where = "`enable` = TRUE AND `type` = 'article'";
@@ -69,6 +78,7 @@ class HomeController extends BaseController
 
     public function tools(): BaseView
     {
+        $this->checkIp();
         if (!$this->checkFormat()) return $this->_redirect('/404.html');
         return $this->_template($this->makeData([
             'title' => '工具'
@@ -77,6 +87,7 @@ class HomeController extends BaseController
 
     public function markdown(): BaseView
     {
+        $this->checkIp();
         if (!$this->checkFormat()) return $this->_redirect('/404.html');
         return $this->_template($this->makeData([
             'title' => '在线Markdown编辑器'
@@ -86,6 +97,7 @@ class HomeController extends BaseController
     public function tag(string $tag): BaseView
     {
 //        if (!$this->checkFormat()) return $this->_redirect('/404.html');
+        $this->checkIp();
         $this->log();
         try {
             $tag = addslashes($tag);
@@ -112,6 +124,7 @@ class HomeController extends BaseController
 
     public function search(): BaseView
     {
+        $this->checkIp();
         if (!$this->checkFormat()) return $this->_redirect('/404.html');
         $this->log();
         $search = $this->_request("search", '');
@@ -138,7 +151,7 @@ class HomeController extends BaseController
                 isset($hotSearch[$search]) ? ($hotSearch[$search] += 1) : ($hotSearch[$search] = 1);
                 $hotSearch = array_filter($hotSearch, function ($count, $item) {
                     return $count >= 5;
-                });
+                }, ARRAY_FILTER_USE_BOTH);
                 asort($hotSearch);
                 Mvc::getCache()->set('hotSearch', $hotSearch);
             }
@@ -154,6 +167,7 @@ class HomeController extends BaseController
 
     public function article(string $idOrAlias, string $type = 'article'): BaseView
     {
+        $this->checkIp();
         if (!$this->checkFormat()) return $this->_redirect('/404.html');
         $this->log();
         $login = $this->_getLogin();
@@ -193,6 +207,19 @@ class HomeController extends BaseController
                 $m->addRead();
             }
             Mvc::getCache()->set($idOrAlias, $m);
+            $afterHead = [];
+            $beforeHead = [];
+            $afterBody = [];
+            $beforeBody = [];
+
+            foreach (Application::plugins() as $plugin) {
+                if (!($plugin instanceof IPlugin)) continue;
+                $handler = $plugin->onRenderArticleTemplate($m);
+                $afterHead[] = $handler->get("afterHead");
+                $beforeHead[] = $handler->get("beforeHead");
+                $afterBody[] = $handler->get("afterBody");
+                $beforeBody[] = $handler->get("beforeBody");
+            }
             return $this->_template($this->makeData([
                 'article' => $m,
                 'title' => $m->getTitle(),
@@ -200,7 +227,11 @@ class HomeController extends BaseController
                 'description' => $m->getDescription(),
                 'commentEnable' => Mvc::getConfig('comment|enable', true),
                 'needPassword' => $needPassword,
-                'needPasswordMessage' => $needPasswordMessage
+                'needPasswordMessage' => $needPasswordMessage,
+                'afterHead' => $afterHead,
+                'beforeHead' => $beforeHead,
+                'afterBody' => $afterBody,
+                'beforeBody' => $beforeBody,
             ]));
         } catch (\Throwable $e) {
             return $this->_exception($e);
@@ -214,6 +245,7 @@ class HomeController extends BaseController
 
     public function date(string $params): BaseView
     {
+        $this->checkIp();
         if (!$this->checkFormat()) return $this->_redirect('/404.html');
         $this->log();
         $date = json_decode($params, true);
@@ -253,6 +285,7 @@ class HomeController extends BaseController
 
     public function _404(): BaseView
     {
+        $this->checkIp();
         return $this->_template($this->makeData([
             'title' => '404 内容不存在'
         ]), '404');
@@ -260,6 +293,7 @@ class HomeController extends BaseController
 
     public function _500(): BaseView
     {
+        $this->checkIp();
         return $this->_template($this->makeData([
             'title' => '500 出现错误',
             'message' => '出现错误'
@@ -268,12 +302,14 @@ class HomeController extends BaseController
 
     public function robots(): BaseView
     {
+        $this->checkIp();
         if (!$this->checkFormat('txt')) return $this->_404();
         return $this->_text(Mvc::getConfig('site|robots', ''));
     }
 
     public function _exception(\Throwable $e = null, string $message = null, string $title = null): BaseView
     {
+        $this->checkIp();
         Mvc::getLogger()->error("出现异常: $message", $e ? $e->getMessage() : '', $e);
         return $this->_template($this->makeData([
             'title' => $title ?: '出现错误',
@@ -296,7 +332,7 @@ class HomeController extends BaseController
         $hotSearch = array_keys(Mvc::getCache()->get('hotSearch', []));
 
         return array_merge([
-            'urlPrefix' => '',
+            'urlPrefix' => Mvc::getUrlPrefix(),
             'title' => '',
             'name' => Mvc::getConfig("site|name", '何方博客'),
             'keywords' => Mvc::getConfig("site|keywords", ''),

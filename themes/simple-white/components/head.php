@@ -12,19 +12,20 @@
 <!--<meta name="theme-color" content="#fefefe">-->
 <meta name="description" content="{:description}">
 <meta baidu-gxt-verify-token="c0a17dac43d072cb520c07d62039225e">
+<link rel="dns-prefetch" href="//api.jueweikeji.com.cn">
 <!--[if lte IE 9]>
 <link rel="stylesheet" href="{:themeUrl}/css/ie8.css">
 <script src="//api.jueweikeji.com.cn/statics/html5shiv/html5shiv.min.js"></script>
 <![endif]-->
-<link crossorigin="anonymous" rel="stylesheet" href="//api.jueweikeji.com.cn/statics/hefang-ui-css/1.1.4/hefang-ui.css">
+<link crossorigin="anonymous" rel="stylesheet" href="//api.jueweikeji.com.cn/statics/hefang-ui-css/1.1.5/hefang-ui.css">
 <link rel="stylesheet" href="{:themeUrl}/css/swiper.css">
 <link rel="stylesheet" href="{:themeUrl}/css/index.css">
 
 <script crossorigin="anonymous" src="//api.jueweikeji.com.cn/statics/core-js/core.min.js"></script>
 <script crossorigin="anonymous" src="//api.jueweikeji.com.cn/statics/jquery/3.3.1/jquery.min.js"></script>
-<script crossorigin="anonymous" src="//api.jueweikeji.com.cn/statics/react/16.3.2/react.development.js"></script>
+<script crossorigin="anonymous" src="//api.jueweikeji.com.cn/statics/react/16.3.2/react.production.min.js"></script>
 <script crossorigin="anonymous"
-        src="//api.jueweikeji.com.cn/statics/react-dom/16.3.2/react-dom.development.js"></script>
+        src="//api.jueweikeji.com.cn/statics/react-dom/16.3.2/react-dom.production.min.js"></script>
 <script crossorigin="anonymous" src="//api.jueweikeji.com.cn/statics/hefang-js/1.1.7/index.js"></script>
 <script crossorigin="anonymous" src="//api.jueweikeji.com.cn/statics/hefang-ui-react/1.0.16/index.js"></script>
 <script src="{:themeUrl}/js/hefang-ui-jquery-swiper.js"></script>
