@@ -6,13 +6,16 @@ defined('PROJECT_NAME') or die("Access Refused");
 use link\hefang\cms\plugins\IPlugin;
 use link\hefang\helpers\CollectionHelper;
 use link\hefang\helpers\StringHelper;
+use link\hefang\mvc\entities\ApiResult;
 use link\hefang\mvc\entities\Router;
 use link\hefang\mvc\exceptions\ActionNotFoundException;
 use link\hefang\mvc\exceptions\ControllerNotFoundException;
 use link\hefang\mvc\Mvc;
 use link\hefang\mvc\SimpleApplication;
 use link\hefang\mvc\views\RedirectView;
+use link\hefang\mvc\views\TextView;
 use link\hefang\site\admin\models\ConfigModel;
+use link\hefang\site\blog\controllers\HomeController;
 
 
 class Application extends SimpleApplication
@@ -115,7 +118,9 @@ class Application extends SimpleApplication
             if (!($plugin instanceof IPlugin)) continue;
             $plugin->onException($e);
         }
-        if (($e instanceof ActionNotFoundException) || ($e instanceof ControllerNotFoundException)) {
+        if (Mvc::isDebug()) {
+            return new TextView(json_encode(new ApiResult(false, $e->getMessage()), JSON_UNESCAPED_UNICODE), TextView::JSON);
+        } else if (($e instanceof ActionNotFoundException) || ($e instanceof ControllerNotFoundException)) {
             return new RedirectView("/404.html");
         } else {
             return new RedirectView("/500.html");

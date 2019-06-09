@@ -49,7 +49,9 @@ class UEditorController extends BaseController
             return call_user_func([$this, $action]);
         } else {
             return $this->result([
-                'state' => '请求地址出错'
+                'state' => '请求地址出错',
+                'success' => false,
+                'result' => '请求地址出错'
             ]);
         }
     }
@@ -79,7 +81,10 @@ class UEditorController extends BaseController
         $path = $_SERVER['DOCUMENT_ROOT'] . ($this->path{0} === '/' ? '' : '/') . $this->path;
         $files = $this->getFiles($path, $allowFiles);
         if (!count($files)) {
-            return $this->result(["state" => "no match file",
+            return $this->result([
+                "state" => "找不到匹配的文件",
+                "success" => false,
+                "result" => "找不到匹配的文件",
                 "list" => [],
                 "start" => $start,
                 "total" => count($files)
@@ -93,6 +98,7 @@ class UEditorController extends BaseController
         /* 返回数据 */
         $result = [
             "state" => "SUCCESS",
+            "success" => true,
             "list" => $list,
             "start" => $start,
             "total" => count($files)
@@ -144,7 +150,10 @@ class UEditorController extends BaseController
     {
         $login = $this->_checkAdmin();
         if (!Mvc::getConfig("upload|enable", true)) {
-            return $this->result(['state' => '文件上传功能已关闭']);
+            return $this->result([
+                "success" => false,
+                'state' => '文件上传功能已关闭'
+            ]);
         }
         if (StringHelper::isNullOrBlank($type)) {
             $this->config = [
@@ -183,11 +192,12 @@ class UEditorController extends BaseController
                 return $this->_text(htmlspecialchars($callback) . '(' . $result . ')');
             } else {
                 return $this->_text(json_encode([
-                    'state' => 'callback参数不合法'
-                ]), TextView::JSON);
+                    'state' => 'callback参数不合法',
+                    'success' => false
+                ], JSON_UNESCAPED_UNICODE), TextView::JSON);
             }
         } else {
-            return $this->_text(json_encode($res), TextView::JSON);
+            return $this->_text(json_encode($res, JSON_UNESCAPED_UNICODE), TextView::JSON);
         }
     }
 

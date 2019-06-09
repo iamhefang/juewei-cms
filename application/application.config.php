@@ -10,7 +10,7 @@ return [
     'database.host' => 'localhost',
     'database.port' => null,
     'database.username' => 'root',
-    'database.password' => '123456',
+    'database.password' => '111111',
     'database.charset' => 'utf8mb4',
     'database.database' => 'blog',
     'password.salt' => '89389283sofisdkfjlkjg832flskdg2',

@@ -355,6 +355,8 @@ class UEditorUploader
     {
         return array(
             "state" => $this->stateInfo,
+            "success" => $this->stateInfo === "SUCCESS",
+            "result" => $this->stateInfo === "SUCCESS" ? "ok" : $this->stateInfo,
             "url" => $this->fullName,
             "title" => $this->fileName,
             "original" => $this->oriName,

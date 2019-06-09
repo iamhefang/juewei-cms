@@ -24,7 +24,7 @@ return [
     /* 插入的图片浮动方式 */
     "imageUrlPrefix" => "",
     /* 图片访问路径前缀 */
-    "imagePathFormat" => "/files/image/{yyyy}{mm}{dd}/{rand:4}{filename}",
+    "imagePathFormat" => "/files/image/{yyyy}{mm}{dd}/{rand:4}-{filename}",
     /* 上传保存路径,可以自定义保存路径和文件名格式 */
     /* {filename} 会替换成原文件名,配置这项需要注意中文乱码问题 */
     /* {rand:4}{filename} 会替换成随机数,后面的数字是随机数的位数 */
