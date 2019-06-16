@@ -148,6 +148,9 @@ SQL
                 ]
             )
         ];
+        if (!is_array($tags)) {
+            $tags = [];
+        }
         if ($m->getType() === 'article') {
             foreach ($tags as $tag) {
                 $sqls[] = new Sql(

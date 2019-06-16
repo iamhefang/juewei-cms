@@ -18,12 +18,16 @@ class VisitController extends BaseController
     {
         $this->_checkSuperAdmin();
         $id = $this->_post("id");
-        if (!is_array($id)) return $this->_apiFailed('参数异常');
-
-        $ids = "'" . join("','", $id) . "'";
+        if ($id === "all") {
+            $where = null;
+        } else {
+            if (!is_array($id)) return $this->_apiFailed('参数异常');
+            $ids = "'" . join("','", $id) . "'";
+            $where = "`id` IN ({$ids})";
+        }
 
         try {
-            $res = LogVisitModel::database()->delete(LogVisitModel::table(), "`id` IN ({$ids})");
+            $res = LogVisitModel::database()->delete(LogVisitModel::table(), $where);
             return $res ? $this->_apiSuccess($res) : $this->_apiFailed($res);
         } catch (\Throwable $e) {
             Mvc::getLogger()->error("删除访问记录异常", $e->getMessage(), $e);
