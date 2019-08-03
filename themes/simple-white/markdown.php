@@ -2,16 +2,16 @@
 <html lang="zh">
 <head>
     {inc:components/head.php}
-    <link rel="stylesheet" href="//api.jueweikeji.com.cn/statics/code-prettify/0.1.0/prettify.css">
-    <link rel="stylesheet" href="//api.jueweikeji.com.cn/statics/github-markdown-css/3.0.1/github-markdown.css">
-    <link rel="stylesheet" href="//api.jueweikeji.com.cn/statics/hefang-ui-mdeditor/1.0.6/index.css">
-    <link rel="stylesheet" href="//api.jueweikeji.com.cn/statics/katex/0.10.1/katex.min.css">
+    <link rel="stylesheet" href="//cdn.hefang.link/code-prettify/0.1.0/prettify.css">
+    <link rel="stylesheet" href="//cdn.hefang.link/github-markdown-css/3.0.1/github-markdown.css">
+    <link rel="stylesheet" href="//cdn.hefang.link/hefang-ui-mdeditor/1.0.6/index.css">
+    <link rel="stylesheet" href="//cdn.hefang.link/katex/0.10.1/katex.min.css">
 
-    <script crossorigin="anonymous" src="//api.jueweikeji.com.cn/statics/code-prettify/0.1.0/prettify.js"></script>
-    <script crossorigin="anonymous" src="//api.jueweikeji.com.cn/statics/ace/1.4.3/src-min/ace.js"></script>
-    <script crossorigin="anonymous" src="//api.jueweikeji.com.cn/statics/marked/0.6.1/marked.min.js"></script>
-    <script crossorigin="anonymous" src="//api.jueweikeji.com.cn/statics/katex/0.10.1/katex.min.js"></script>
-    <script src="//api.jueweikeji.com.cn/statics/hefang-ui-mdeditor/1.0.6/index.js"></script>
+    <script crossorigin="anonymous" src="//cdn.hefang.link/code-prettify/0.1.0/prettify.js"></script>
+    <script crossorigin="anonymous" src="//cdn.hefang.link/ace/1.4.3/src-min/ace.js"></script>
+    <script crossorigin="anonymous" src="//cdn.hefang.link/marked/0.6.1/marked.min.js"></script>
+    <script crossorigin="anonymous" src="//cdn.hefang.link/katex/0.10.1/katex.min.js"></script>
+    <script src="//cdn.hefang.link/hefang-ui-mdeditor/1.0.6/index.js"></script>
 </head>
 <body data-theme="white">
 {inc:components/nav.php}
