@@ -37,7 +37,8 @@ const appShellFiles = [
 	"//cdn.hefang.link/hefang-images/logos/152x152.png",
 	"//cdn.hefang.link/hefang-images/logos/180x180.png",
 	"//cdn.hefang.link/hefang-images/logos/192x192.png",
-	"//cdn.hefang.link/hefang-images/logos/300x300.png"
+	"//cdn.hefang.link/hefang-images/logos/300x300.png",
+	"//hefang.link/favicon.ico"
 ];
 
 self.addEventListener("install", function (e) {
