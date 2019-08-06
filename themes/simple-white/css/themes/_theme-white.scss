@@ -1,23 +1,27 @@
 
 .navbar {
-  background: white;
-  color: #2f2f2f;
-  border-bottom: thin solid #efefef;
-  &-container {
-  }
-  &-item {
-    transition: all .35s;
-    span {
-      padding: .4rem;
-      box-sizing: border-box;
-      border-radius: .3rem;
-      transition: all .35s;
-    }
-    &:hover, &.active {
-      span {
-        background: #65c7f3;
-        color: white;
-      }
-    }
-  }
+	background: white;
+	color: #2f2f2f;
+	border-bottom: thin solid #efefef;
+
+	&-container {
+	}
+
+	&-item {
+		transition: all .35s;
+
+		span {
+			padding: .4rem;
+			box-sizing: border-box;
+			border-radius: .3rem;
+			transition: all .35s;
+		}
+
+		&:hover, &.active {
+			span {
+				background: #65c7f3;
+				color: white;
+			}
+		}
+	}
 }

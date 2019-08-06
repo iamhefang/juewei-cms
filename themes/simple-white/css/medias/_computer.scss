@@ -1,10 +1,10 @@
 $navbar-height: 3.6rem;
 body {
-  padding-top: $navbar-height;
+	padding-top: $navbar-height;
 }
 
 .container {
-  width: 95%;
+	width: 95%;
 }
 
 .main {
@@ -14,9 +14,10 @@ body {
 }
 
 .navbar {
-  height: $navbar-height;
-  line-height: $navbar-height;
-  &-item {
-    height: $navbar-height;
-  }
+	height: $navbar-height;
+	line-height: $navbar-height;
+
+	&-item {
+		height: $navbar-height;
+	}
 }

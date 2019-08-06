@@ -3,19 +3,19 @@
 @import "./medias/common";
 
 @media (max-width: 100rem) {
-  @import "./medias/computer-large";
+	@import "./medias/computer-large";
 }
 
 @media (max-width: 64rem) {
-  @import "./medias/computer";
+	@import "./medias/computer";
 }
 
 @media (max-width: 48rem) {
-  @import "./medias/pad";
+	@import "./medias/pad";
 }
 
 @media (max-width: 38rem) {
-  @import "./medias/mobile-phone";
+	@import "./medias/mobile-phone";
 }
 
 //主题

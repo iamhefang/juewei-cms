@@ -1,10 +1,10 @@
 $navbar-height: 4rem;
 body {
-  padding-top: $navbar-height;
+	padding-top: $navbar-height;
 }
 
 .container {
-  width: 80%;
+	width: 80%;
 }
 
 .main {
@@ -14,15 +14,16 @@ body {
 }
 
 .navbar {
-  height: $navbar-height;
-  line-height: $navbar-height;
-  &-item {
-    height: $navbar-height;
-    line-height: $navbar-height;
-  }
+	height: $navbar-height;
+	line-height: $navbar-height;
+
+	&-item {
+		height: $navbar-height;
+		line-height: $navbar-height;
+	}
 }
 
 .article-list-item {
-  display: block;
-  width: 100%;
+	display: block;
+	width: 100%;
 }

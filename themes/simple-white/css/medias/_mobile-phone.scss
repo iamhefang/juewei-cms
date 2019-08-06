@@ -1,90 +1,101 @@
 $navbar-height: 3rem;
 $spacing-size: .8rem;
 body {
-  padding-top: $navbar-height;
+	padding-top: $navbar-height;
 }
 
 .container {
-  width: 100%;
+	width: 100%;
 }
 
 .navbar {
-  height: $navbar-height;
-  line-height: $navbar-height;
-  &-item {
-    height: $navbar-height;
-    line-height: $navbar-height;
-  }
-  &-brand {
-    display: block;
-    text-align: center;
-  }
-  &-container {
-    position: fixed;
-    top: $navbar-height;
-    right: 0;
-    bottom: 0;
-    width: 69%;
-    border-left: thin solid #efefef;
-    transition: all .35s;
-    background: white;
-    .navbar-item {
-      display: block;
-      text-align: right;
-    }
-  }
-  &[data-open=false] {
-    .navbar-container {
-      transform: translateX(100%);
-    }
-  }
-  &[data-open=true] {
-    #toggleSideNav {
-      &:before {
-        transform-origin: right;
-        transform: rotate(-45deg);
-      }
-      &:after {
-        transform-origin: right;
-        transform: rotate(45deg);
-      }
-      background: transparent;
-    }
-  }
-  #toggleSideNav {
-    display: inline-block;
-  }
+	height: $navbar-height;
+	line-height: $navbar-height;
+
+	&-item {
+		height: $navbar-height;
+		line-height: $navbar-height;
+	}
+
+	&-brand {
+		display: block;
+		text-align: center;
+	}
+
+	&-container {
+		position: fixed;
+		top: $navbar-height;
+		right: 0;
+		bottom: 0;
+		width: 69%;
+		border-left: thin solid #efefef;
+		transition: all .35s;
+		background: white;
+
+		.navbar-item {
+			display: block;
+			text-align: right;
+		}
+	}
+
+	&[data-open=false] {
+		.navbar-container {
+			transform: translateX(100%);
+		}
+	}
+
+	&[data-open=true] {
+		#toggleSideNav {
+			&:before {
+				transform-origin: right;
+				transform: rotate(-45deg);
+			}
+
+			&:after {
+				transform-origin: right;
+				transform: rotate(45deg);
+			}
+
+			background: transparent;
+		}
+	}
+
+	#toggleSideNav {
+		display: inline-block;
+	}
 }
 
 .main {
-  padding: $spacing-size $spacing-size / 2;
-  box-sizing: border-box;
-  .block {
-    margin-right: 0;
-  }
+	padding: $spacing-size $spacing-size / 2;
+	box-sizing: border-box;
+
+	.block {
+		margin-right: 0;
+	}
 }
 
 .article-list-item {
-  .title {
-    font-size: 1.2rem;
-  }
-  .description {
-    font-size: .9rem;
-  }
+	.title {
+		font-size: 1.2rem;
+	}
+
+	.description {
+		font-size: .9rem;
+	}
 }
 
 .block {
-  padding: .8rem;
+	padding: .8rem;
 }
 
 .aside-container {
-  display: none;
+	display: none;
 }
 
 .search-mobile {
-  display: block;
+	display: block;
 }
 
 .qrcode {
-  display: block;
+	display: block;
 }

@@ -11,6 +11,8 @@ node_modules/
 /admin/
 /statics/
 package.json
+package-lock.json
 *.lock
 /files
 /plugins
+/temp/
