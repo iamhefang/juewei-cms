@@ -49,6 +49,9 @@ self.addEventListener("install", function (e) {
 });
 
 self.addEventListener('fetch', function (e) {
+	if (e.request.url.indexOf("/api/") !== -1) {
+		return fetch(e.request).then(response => response)
+	}
 	e.respondWith(caches.match(e.request).then(function (cachedResponse) {
 		// console.log('[Service Worker] Fetching resource: ' + e.request.url);
 		return cachedResponse || fetch(e.request).then(function (newResponse) {
